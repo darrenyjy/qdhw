@@ -23,128 +23,146 @@
  *    Pipe connects two data streams and transmits the data 
  *  from the first stream to the second stream.
  * </file>
-*/
+ */
 
 package kwic.pf;
 
 /*
  * $Log$
-*/
+ */
 
+import java.io.IOException;
 import java.io.PipedReader;
 import java.io.PipedWriter;
-import java.io.IOException;
 
 /**
- *  A pipe object connects two data streams allowing data to be transmitted between
- *  them. Thus, whenever a client writes some data to the first stream,  this data
- *  become then available for reading in the second stream.
- *  @author  dhelic
- *  @version $Id$
-*/
-
-public class Pipe{
-
-//----------------------------------------------------------------------
-/**
- * Fields
- *
- */
-//----------------------------------------------------------------------
-
-/**
- * Pipe reader
- *
+ * A pipe object connects two data streams allowing data to be transmitted
+ * between them. Thus, whenever a client writes some data to the first stream,
+ * this data become then available for reading in the second stream.
+ * 
+ * @author dhelic
+ * @version $Id$
  */
 
-  private PipedReader reader_;
+public class Pipe
+{
 
-/**
- * Pipe writer
- *
- */ 
+	// ----------------------------------------------------------------------
+	/**
+	 * Fields
+	 * 
+	 */
+	// ----------------------------------------------------------------------
 
-  private PipedWriter writer_;
+	/**
+	 * Pipe reader
+	 * 
+	 */
 
-//----------------------------------------------------------------------
-/**
- * Constructors
- *
- */
-//----------------------------------------------------------------------
+	private PipedReader reader_;
 
-//----------------------------------------------------------------------
-/**
- * Default constructor. It establishes the connection between the character streams.
- * @exception IOException thrown if the pipe cannot connect the streams
- */
+	/**
+	 * Pipe writer
+	 * 
+	 */
 
-  public Pipe() throws IOException{
-    writer_ = new PipedWriter();
-    reader_ = new PipedReader();
-    writer_.connect(reader_);
-  }
+	private PipedWriter writer_;
 
-//----------------------------------------------------------------------
-/**
- * Methods
- *Input 
- */
-//----------------------------------------------------------------------
+	// ----------------------------------------------------------------------
+	/**
+	 * Constructors
+	 * 
+	 */
+	// ----------------------------------------------------------------------
 
-//----------------------------------------------------------------------
-/**
- * This method writes a character to the pipe.
- * @param c character to write
- * @exception IOException thrown if we cannot write to the pipe
- * @return void
- */
+	// ----------------------------------------------------------------------
+	/**
+	 * Default constructor. It establishes the connection between the character
+	 * streams.
+	 * 
+	 * @exception IOException
+	 *                thrown if the pipe cannot connect the streams
+	 */
 
-  public void write(int c) throws IOException{
-    writer_.write(c);
-  }
+	public Pipe() throws IOException
+	{
+		writer_ = new PipedWriter();
+		reader_ = new PipedReader();
+		writer_.connect(reader_);
+	}
 
-//----------------------------------------------------------------------
-/**
- * This method reads a character from the pipe.
- * @exception IOException thrown if we cannot read from the pipe
- * @return char next chracter in the stream
- */
+	// ----------------------------------------------------------------------
+	/**
+	 * Methods Input
+	 */
+	// ----------------------------------------------------------------------
 
-  public int read() throws IOException{
-    return reader_.read();
-  }
+	// ----------------------------------------------------------------------
+	/**
+	 * This method writes a character to the pipe.
+	 * 
+	 * @param c
+	 *            character to write
+	 * @exception IOException
+	 *                thrown if we cannot write to the pipe
+	 * @return void
+	 */
 
-//----------------------------------------------------------------------
-/**
- * Closes the writer of this pipe. After calling this method no data
- * can be written to the pipe.
- * @return void
- * @exception IOException thrown if we cannot close the writer
- */
+	public void write(int c) throws IOException
+	{
+		writer_.write(c);
+	}
 
-  public void closeWriter() throws IOException{
-    writer_.flush();
-    writer_.close();
-  }
+	// ----------------------------------------------------------------------
+	/**
+	 * This method reads a character from the pipe.
+	 * 
+	 * @exception IOException
+	 *                thrown if we cannot read from the pipe
+	 * @return char next chracter in the stream
+	 */
 
-//----------------------------------------------------------------------
-/**
- * Closes the reader of this pipe. After calling this method no data
- * can be read from the pipe.
- * @return void
- * @exception IOException thrown if we cannot close the reader
- */
+	public int read() throws IOException
+	{
+		return reader_.read();
+	}
 
-  public void closeReader() throws IOException{
-    reader_.close();
-  }
+	// ----------------------------------------------------------------------
+	/**
+	 * Closes the writer of this pipe. After calling this method no data can be
+	 * written to the pipe.
+	 * 
+	 * @return void
+	 * @exception IOException
+	 *                thrown if we cannot close the writer
+	 */
 
-//----------------------------------------------------------------------
-/**
- * Inner classes
- *
- */
-//----------------------------------------------------------------------
+	public void closeWriter() throws IOException
+	{
+		writer_.flush();
+		writer_.close();
+	}
+
+	// ----------------------------------------------------------------------
+	/**
+	 * Closes the reader of this pipe. After calling this method no data can be
+	 * read from the pipe.
+	 * 
+	 * @return void
+	 * @exception IOException
+	 *                thrown if we cannot close the reader
+	 */
+
+	public void closeReader() throws IOException
+	{
+		reader_.close();
+	}
+
+	// ----------------------------------------------------------------------
+	/**
+	 * Inner classes
+	 * 
+	 */
+	// ----------------------------------------------------------------------
 
 }
