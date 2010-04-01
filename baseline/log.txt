@@ -1,0 +1,10 @@
+10-04-01 14:15:32: INFO   kwic.oo.KWIC  - commandtest.txt
+10-04-01 14:16:03: INFO   kwic.oo.KWIC  - commandtest.txt
+10-04-01 14:20:24: DEBUG  kwic.oo.KWIC  - [Ljava.lang.String;@1aaf0b3
+10-04-01 14:20:27: DEBUG  kwic.oo.KWIC  - [Ljava.lang.String;@f0c85e
+10-04-01 14:20:57: DEBUG  kwic.oo.KWIC  - [Ljava.lang.String;@1a082e2
+10-04-01 14:20:59: DEBUG  kwic.oo.KWIC  - [Ljava.lang.String;@1aaf0b3
+10-04-01 14:21:02: DEBUG  kwic.oo.KWIC  - [Ljava.lang.String;@1aaf0b3
+10-04-01 14:22:27: INFO   kwic.oo.KWIC  - command:null
+10-04-01 14:49:17: INFO   kwic.oo.KWIC  - command:null
+10-04-01 14:50:57: INFO   kwic.oo.KWIC  - command:null
