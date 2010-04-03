@@ -107,23 +107,29 @@ public class KWIC
 			// pipes
 			Pipe in_sf = new Pipe();
 			Pipe sf_cs = new Pipe();
+			Pipe sf_lt1 = new Pipe();
 			Pipe cs_al = new Pipe();
 			Pipe al_ou = new Pipe();
+			Pipe lt2_al = new Pipe();
 
 			// input file
 			FileInputStream in = new FileInputStream(file);
 
 			// filters connected into a pipeline
 			Input input = new Input(in, in_sf);
-			ShiftFilter shiftFilter = new ShiftFilter(in_sf, sf_cs);
+			ShiftFilter shiftFilter = new ShiftFilter(in_sf, sf_lt1);
+			LineTransformer first = new LineTransformer(sf_lt1, sf_cs);
 			CircularShifter shifter = new CircularShifter(sf_cs, cs_al);
-			Alphabetizer alpha = new Alphabetizer(cs_al, al_ou);
+			LineTransformer second = new LineTransformer(cs_al, lt2_al);
+			Alphabetizer alpha = new Alphabetizer(lt2_al, al_ou);
 			Output output = new Output(al_ou);
 
 			// run it
 			input.start();
 			shiftFilter.start();
+			first.start();
 			shifter.start();
+			second.start();
 			alpha.start();
 			output.start();
 		} catch (IOException exc)

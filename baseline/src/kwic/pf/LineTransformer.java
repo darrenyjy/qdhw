@@ -1,50 +1,24 @@
 package kwic.pf;
 
-import java.io.BufferedReader;
 import java.io.CharArrayWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashSet;
 import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class ShiftFilter extends Filter
+public class LineTransformer extends Filter
 {
-	static HashSet<String> noiseList;
-	private static Log log = LogFactory.getLog(ShiftFilter.class);
+	private static Log log = LogFactory.getLog(LineTransformer.class);
 
-	public ShiftFilter(Pipe input, Pipe output)
+	public LineTransformer(Pipe input, Pipe output)
 	{
 		super(input, output);
-		noiseList = new HashSet<String>();
-
-		try
-		{
-			BufferedReader reader = new BufferedReader(new FileReader(
-					"noise.txt"));
-			String noise = reader.readLine();
-			while (null != noise)
-			{
-				noiseList.add(noise);
-				noise = reader.readLine();
-			}
-		} catch (FileNotFoundException e)
-		{
-			e.printStackTrace();
-		} catch (IOException e)
-		{
-			e.printStackTrace();
-		}
 	}
 
 	@Override
 	protected void transform()
 	{
-		log.debug("ShiftFilter start.");
-		// keeps the characters
 		CharArrayWriter writer = new CharArrayWriter();
 
 		int c;
@@ -67,16 +41,14 @@ public class ShiftFilter extends Filter
 					int i = 0;
 
 					while (tokenizer.hasMoreTokens())
+						words[i++] = tokenizer.nextToken();
+
+					// make first word upper class
+					if (words[0] != null)
 					{
-						String word = tokenizer.nextToken();
-						// handle if it is noise word.
-						if (!noiseList.contains(word))
-							words[i++] = word;
-						else
-						{
-							log.debug("Filtered noise : " + word);
-						}
+						words[0] = words[0].toUpperCase();
 					}
+
 					int length = i;
 					for (i = 0; i < length; i++)
 					{
