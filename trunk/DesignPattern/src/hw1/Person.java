@@ -26,7 +26,7 @@ public class Person
 		this.position = posotion;
 	}
 
-	String getName()
+	public String getName()
 	{
 		return name;
 	}

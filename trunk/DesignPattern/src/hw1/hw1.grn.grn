@@ -4,15 +4,15 @@
       <name="=DesignPattern/src<hw1{Person.java[Person"/>
       <height="-1"/>
       <width="-1"/>
-      <x="128"/>
-      <y="680"/>
+      <x="143"/>
+      <y="689"/>
    </type>
    <type>
       <name="=DesignPattern/src<hw1{Posotion.java[Posotion"/>
       <height="-1"/>
       <width="-1"/>
-      <x="293"/>
-      <y="585"/>
+      <x="222"/>
+      <y="555"/>
    </type>
    <type>
       <name="=DesignPattern/src<hw1{ManagerPosition.java[ManagerPosition"/>
@@ -64,23 +64,9 @@
       <y="112"/>
    </type>
    <relationship>
-      <class="edu.buffalo.cse.green.relationship.dependency.DependencyIPart"/>
-      <sourceType="=DesignPattern/src<hw1.salary.calculator{SalaryCalculatorFactory.java[SalaryCalculatorFactory"/>
-      <targetType="=DesignPattern/src<hw1.salary.calculator{ManagerLevelOneSalaryCalculator.java[ManagerLevelOneSalaryCalculator"/>
-      <bendpoints>
-      </bendpoints>
-   </relationship>
-   <relationship>
       <class="edu.buffalo.cse.green.relationship.association.AssociationPart"/>
       <sourceType="=DesignPattern/src<hw1{Person.java[Person"/>
       <targetType="=DesignPattern/src<hw1{Posotion.java[Posotion"/>
-      <bendpoints>
-      </bendpoints>
-   </relationship>
-   <relationship>
-      <class="edu.buffalo.cse.green.relationship.realization.RealizationPart"/>
-      <sourceType="=DesignPattern/src<hw1.salary.calculator{EmployeeSalaryCalculator.java[EmployeeSalaryCalculator"/>
-      <targetType="=DesignPattern/src<hw1.salary.calculator{SalaryCalculator.java[SalaryCalculator"/>
       <bendpoints>
       </bendpoints>
    </relationship>
@@ -92,9 +78,9 @@
       </bendpoints>
    </relationship>
    <relationship>
-      <class="edu.buffalo.cse.green.relationship.realization.RealizationPart"/>
-      <sourceType="=DesignPattern/src<hw1{ManagerPosition.java[ManagerPosition"/>
-      <targetType="=DesignPattern/src<hw1{Posotion.java[Posotion"/>
+      <class="edu.buffalo.cse.green.relationship.dependency.DependencyLPart"/>
+      <sourceType="=DesignPattern/src<hw1.salary.calculator{SalaryCalculatorFactory.java[SalaryCalculatorFactory"/>
+      <targetType="=DesignPattern/src<hw1.salary.calculator{SalaryCalculator.java[SalaryCalculator"/>
       <bendpoints>
       </bendpoints>
    </relationship>
@@ -106,16 +92,9 @@
       </bendpoints>
    </relationship>
    <relationship>
-      <class="edu.buffalo.cse.green.relationship.realization.RealizationPart"/>
-      <sourceType="=DesignPattern/src<hw1{EmployeePosition.java[EmployeePosition"/>
-      <targetType="=DesignPattern/src<hw1{Posotion.java[Posotion"/>
-      <bendpoints>
-      </bendpoints>
-   </relationship>
-   <relationship>
-      <class="edu.buffalo.cse.green.relationship.dependency.DependencyLPart"/>
+      <class="edu.buffalo.cse.green.relationship.dependency.DependencyIPart"/>
       <sourceType="=DesignPattern/src<hw1.salary.calculator{SalaryCalculatorFactory.java[SalaryCalculatorFactory"/>
-      <targetType="=DesignPattern/src<hw1.salary.calculator{SalaryCalculator.java[SalaryCalculator"/>
+      <targetType="=DesignPattern/src<hw1.salary.calculator{ManagerLevelOneSalaryCalculator.java[ManagerLevelOneSalaryCalculator"/>
       <bendpoints>
       </bendpoints>
    </relationship>
@@ -127,9 +106,30 @@
       </bendpoints>
    </relationship>
    <relationship>
+      <class="edu.buffalo.cse.green.relationship.realization.RealizationPart"/>
+      <sourceType="=DesignPattern/src<hw1.salary.calculator{EmployeeSalaryCalculator.java[EmployeeSalaryCalculator"/>
+      <targetType="=DesignPattern/src<hw1.salary.calculator{SalaryCalculator.java[SalaryCalculator"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
       <class="edu.buffalo.cse.green.relationship.dependency.DependencyIPart"/>
       <sourceType="=DesignPattern/src<hw1.salary.calculator{SalaryCalculatorFactory.java[SalaryCalculatorFactory"/>
       <targetType="=DesignPattern/src<hw1.salary.calculator{EmployeeSalaryCalculator.java[EmployeeSalaryCalculator"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.realization.RealizationPart"/>
+      <sourceType="=DesignPattern/src<hw1{EmployeePosition.java[EmployeePosition"/>
+      <targetType="=DesignPattern/src<hw1{Posotion.java[Posotion"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.realization.RealizationPart"/>
+      <sourceType="=DesignPattern/src<hw1{ManagerPosition.java[ManagerPosition"/>
+      <targetType="=DesignPattern/src<hw1{Posotion.java[Posotion"/>
       <bendpoints>
       </bendpoints>
    </relationship>
