@@ -15,10 +15,10 @@ public class Main
 	public static void main(String[] args)
 	{
 		// TODO Auto-generated method stub
-		Person p1 = new Person("Coddy", new ManagerPosition());
-		Person p2 = new Person("Somebody", new EmployeePosition());
+		Employee p1 = new Employee("Coddy", new ManagerPosition());
+		Employee p2 = new Employee("Somebody", new EmployeePosition());
 
-		List<Person> list = new ArrayList<Person>();
+		List<Employee> list = new ArrayList<Employee>();
 		list.add(p1);
 		list.add(p2);
 

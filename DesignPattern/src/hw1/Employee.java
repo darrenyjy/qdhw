@@ -7,7 +7,7 @@ package hw1;
  * @author coddy
  * 
  */
-public class Person
+public class Employee
 {
 
 	/**
@@ -20,7 +20,7 @@ public class Person
 	/**
 	 * 
 	 */
-	public Person(String name, Posotion posotion)
+	public Employee(String name, Posotion posotion)
 	{
 		this.name = name;
 		this.position = posotion;
