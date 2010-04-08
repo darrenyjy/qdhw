@@ -2,7 +2,7 @@ package hw1.position;
 
 import hw1.salary.calculator.SalaryCalculator;
 
-public interface Posotion
+public interface Position
 {
 
 	/**

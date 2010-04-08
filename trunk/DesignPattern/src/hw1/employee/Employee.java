@@ -3,7 +3,7 @@
  */
 package hw1.employee;
 
-import hw1.position.Posotion;
+import hw1.position.Position;
 
 /**
  * @author coddy
@@ -17,12 +17,12 @@ public class Employee
 	 */
 	private String name = null;
 
-	private Posotion position = null;
+	private Position position = null;
 
 	/**
 	 * 
 	 */
-	public Employee(String name, Posotion posotion)
+	public Employee(String name, Position posotion)
 	{
 		this.name = name;
 		this.position = posotion;
@@ -33,7 +33,7 @@ public class Employee
 		return name;
 	}
 
-	Posotion getPosition()
+	Position getPosition()
 	{
 		return position;
 	}
@@ -43,7 +43,7 @@ public class Employee
 		return position.calculateSalary();
 	}
 
-	public void setPosition(Posotion position)
+	public void setPosition(Position position)
 	{
 		this.position = position;
 	}
