@@ -60,6 +60,7 @@ public class LineStorageChangeEvent
 	public static final int ADD = 0;
 	public static final int DELETE = 1;
 	public static final int INSERT = 2;
+	public static final int PRINT = 3;
 
 	/**
 	 * The type of the change
