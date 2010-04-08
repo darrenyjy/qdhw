@@ -155,6 +155,38 @@ public class KWIC
 		output.print(shifts);
 	}
 
+	public void execute()
+	{
+		// initialize all variables
+
+		// storage for original lines
+		LineStorageWrapper lines = new LineStorageWrapper();
+
+		// storage for circular shifts
+		LineStorageWrapper shifts = new LineStorageWrapper();
+
+		// input reader
+		Input input = new Input();
+
+		// circular shifter
+		CircularShifter shifter = new CircularShifter(shifts);
+		// declare interest in tracking changes
+		lines.addObserver(shifter);
+
+		// alphabetizer
+		Alphabetizer alphabetizer = new Alphabetizer();
+		// declare interest in tracking changes
+		shifts.addObserver(alphabetizer);
+
+		// line printer
+		Output output = new Output();
+
+		input.interact(lines);
+
+		// print sorted shifts
+		output.print(shifts);
+	}
+
 	// ----------------------------------------------------------------------
 	/**
 	 * Main function checks the command line arguments. The program expects
@@ -178,7 +210,8 @@ public class KWIC
 		}
 
 		KWIC kwic = new KWIC();
-		kwic.execute(args[0]);
+		// kwic.execute(args[0]);
+		kwic.execute();
 	}
 
 	// ----------------------------------------------------------------------

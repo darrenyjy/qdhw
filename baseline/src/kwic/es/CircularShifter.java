@@ -33,6 +33,9 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * CircularShifter class implemets the "Observer" part of the standard
  * "Observable"-"Observer" mechanism. Thus, an instance of CircularShifter class
@@ -64,6 +67,7 @@ public class CircularShifter implements Observer
 	 */
 
 	private LineStorageWrapper shifts_;
+	private static Log log = LogFactory.getLog(CircularShifter.class);
 
 	// ----------------------------------------------------------------------
 	/**
@@ -111,6 +115,7 @@ public class CircularShifter implements Observer
 		// of the new line and add them to shifts storage
 		case LineStorageChangeEvent.ADD:
 
+			log.debug("Before adding " + lines.getLineCount());
 			// get the last added line
 			String[] line = lines.getLine(lines.getLineCount() - 1);
 
@@ -135,9 +140,30 @@ public class CircularShifter implements Observer
 				// add the new shift to the storage
 				shifts_.addLine(line_rep);
 			}
+			log.debug("After:" + lines.getLineCount());
+
 			break;
+		case LineStorageChangeEvent.DELETE:
+			// TODO DELETE HANDLER
+			log.debug("Deleting");
+			log.debug(shifts_.getLineCount());
+			try
+			{
+				int index = Integer.parseInt(event.getArg());
+				shifts_.deleteLine(index);
+				log.debug(shifts_.getLineCount());
+			} catch (Exception e)
+			{
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+
 		default:
 			break;
+		}
+		for (int i = 0; i < lines.getLineCount(); i++)
+		{
+			log.debug(lines.getLineAsString(i));
 		}
 	}
 
