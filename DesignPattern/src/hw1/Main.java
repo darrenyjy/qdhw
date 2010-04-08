@@ -1,5 +1,8 @@
 package hw1;
 
+import hw1.employee.Employee;
+import hw1.position.EmployeePosition;
+import hw1.position.ManagerPosition;
 import hw1.salary.printer.SalaryPrinter;
 import hw1.salary.printer.SalaryPrinterImpl;
 

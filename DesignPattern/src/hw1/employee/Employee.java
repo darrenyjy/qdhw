@@ -1,7 +1,9 @@
 /**
  * 
  */
-package hw1;
+package hw1.employee;
+
+import hw1.position.Posotion;
 
 /**
  * @author coddy
@@ -41,7 +43,7 @@ public class Employee
 		return position.calculateSalary();
 	}
 
-	void setPosition(Posotion position)
+	public void setPosition(Posotion position)
 	{
 		this.position = position;
 	}
