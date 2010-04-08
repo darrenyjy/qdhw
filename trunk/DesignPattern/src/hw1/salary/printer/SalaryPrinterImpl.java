@@ -1,6 +1,6 @@
 package hw1.salary.printer;
 
-import hw1.Employee;
+import hw1.employee.Employee;
 
 import java.util.List;
 

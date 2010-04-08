@@ -1,7 +1,7 @@
 /**
  * 
  */
-package hw1;
+package hw1.position;
 
 import hw1.salary.calculator.SalaryCalculator;
 import hw1.salary.calculator.SalaryCalculatorFactory;
