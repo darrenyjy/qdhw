@@ -1,0 +1,25 @@
+<uml>
+   <greenVersion="30500"/>
+   <type>
+      <name="=DesignPattern/src<hw1.salary.printer{SalaryPrinter.java[SalaryPrinter"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="285"/>
+      <y="104"/>
+   </type>
+   <type>
+      <name="=DesignPattern/src<hw1.salary.printer{SalaryPrinterImpl.java[SalaryPrinterImpl"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="292"/>
+      <y="195"/>
+   </type>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.realization.RealizationPart"/>
+      <sourceType="=DesignPattern/src<hw1.salary.printer{SalaryPrinterImpl.java[SalaryPrinterImpl"/>
+      <targetType="=DesignPattern/src<hw1.salary.printer{SalaryPrinter.java[SalaryPrinter"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+</uml>
+
