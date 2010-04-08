@@ -4,6 +4,8 @@ import hw1.employee.Employee;
 import hw1.employee.EmployeeLoader;
 import hw1.salary.printer.SalaryPrinter;
 import hw1.salary.printer.SalaryPrinterImpl;
+import hw1.sorter.SalarySorter;
+import hw1.sorter.Sorter;
 
 import java.util.List;
 
@@ -20,7 +22,9 @@ public class Main
 
 		SalaryPrinter printer = new SalaryPrinterImpl();
 
-		printer.printSalary(list);
+		Sorter sorter = new SalarySorter();
+
+		printer.printSalary(sorter.sort(list));
 	}
 
 }

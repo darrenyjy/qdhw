@@ -1,0 +1,25 @@
+<uml>
+   <greenVersion="30500"/>
+   <type>
+      <name="=DesignPattern/src<hw1.employee{EmployeeLoader.java[EmployeeLoader"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="21"/>
+      <y="38"/>
+   </type>
+   <type>
+      <name="=DesignPattern/src<hw1.employee{Employee.java[Employee"/>
+      <height="-1"/>
+      <width="-1"/>
+      <x="417"/>
+      <y="14"/>
+   </type>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.dependency.DependencyLPart"/>
+      <sourceType="=DesignPattern/src<hw1.employee{EmployeeLoader.java[EmployeeLoader"/>
+      <targetType="=DesignPattern/src<hw1.employee{Employee.java[Employee"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+</uml>
+
