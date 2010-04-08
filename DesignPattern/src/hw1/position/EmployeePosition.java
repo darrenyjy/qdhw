@@ -10,7 +10,7 @@ import hw1.salary.calculator.SalaryCalculatorFactory;
  * @author coddy
  * 
  */
-public class EmployeePosition implements Posotion
+public class EmployeePosition implements Position
 {
 	private static final String POSITION_NAME = "Employee";
 	private static long DEFAULT_BASE_SALARY = 10000;
