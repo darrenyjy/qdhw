@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE AccountInfo SYSTEM "account_info.dtd">
+<AccountInfo>
+  <Account>
+    <AccountName>libing</AccountName>
+    <AccountPassword>111111</AccountPassword>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+  </Account>
+  <Account>
+    <AccountName>zhang</AccountName>
+    <AccountPassword>111111</AccountPassword>
+    <CreditCardNumber>0987654321</CreditCardNumber>
+  </Account>
+  <Account>
+    <AccountName>wang</AccountName>
+    <AccountPassword>111111</AccountPassword>
+    <CreditCardNumber>7890123456</CreditCardNumber>
+  </Account>
+</AccountInfo>
