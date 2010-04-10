@@ -1,0 +1,9 @@
+<!ELEMENT ResponseQueue (Response*)>
+<!ELEMENT Response (ResponseID, Exception, AccountName, BookName, Quantity, CreditCardNumber, Payment)>
+<!ELEMENT ResponseID (#PCDATA)>
+<!ELEMENT Exception (#PCDATA)>
+<!ELEMENT AccountName (#PCDATA)>
+<!ELEMENT BookName (#PCDATA)>
+<!ELEMENT Quantity (#PCDATA)>
+<!ELEMENT CreditCardNumber (#PCDATA)>
+<!ELEMENT Payment (#PCDATA)>

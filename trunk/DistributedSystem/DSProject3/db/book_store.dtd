@@ -1,0 +1,9 @@
+<!ELEMENT BookStore (BookRetailer, Book*)>
+<!ELEMENT BookRetailer (Cash)>
+<!ELEMENT Cash (#PCDATA)>
+<!ELEMENT Book (BookName, BookAuthor, BookPublisher, BookPrice, BookInStock)>
+<!ELEMENT BookName (#PCDATA)>
+<!ELEMENT BookAuthor (#PCDATA)>
+<!ELEMENT BookPublisher (#PCDATA)>
+<!ELEMENT BookPrice (#PCDATA)>
+<!ELEMENT BookInStock (#PCDATA)>
