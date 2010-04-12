@@ -203,11 +203,11 @@ public class KWIC
 
 	public static void main(String[] args)
 	{
-		if (args.length != 1)
-		{
-			System.err.println("KWIC Usage: java kwic.ms.KWIC file_name");
-			System.exit(1);
-		}
+		// if (args.length != 1)
+		// {
+		// System.err.println("KWIC Usage: java kwic.ms.KWIC file_name");
+		// System.exit(1);
+		// }
 
 		KWIC kwic = new KWIC();
 		// kwic.execute(args[0]);

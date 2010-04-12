@@ -30,8 +30,10 @@ package kwic.es;
  */
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.StringTokenizer;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -144,17 +146,37 @@ public class CircularShifter implements Observer
 
 			break;
 		case LineStorageChangeEvent.DELETE:
-			// TODO DELETE HANDLER
 			log.debug("Deleting");
 			log.debug(shifts_.getLineCount());
 			try
 			{
-				int index = Integer.parseInt(event.getArg());
-				shifts_.deleteLine(index);
+				String deletedLine = event.getArg();
+				log.debug(deletedLine);
+
+				List list = generateList(deletedLine);
+				for (int i = 0; i < list.size(); i++)
+				{
+					for (int j = 0; j < shifts_.getLineCount(); j++)
+					{
+						String original = (String) list.get(i);
+						String compared = shifts_.getLineAsString(j);
+						log.debug("O" + original);
+						log.debug("C" + compared);
+						if (original.equals(compared))
+						{
+							log.debug("Delete line: " + shifts_.getLine(j));
+							shifts_.deleteLine(j);
+							break;
+						}
+
+					}
+
+				}
+				// int index = Integer.parseInt(event.getArg());
+				// shifts_.deleteLine(index);
 				log.debug(shifts_.getLineCount());
 			} catch (Exception e)
 			{
-				// TODO: handle exception
 				e.printStackTrace();
 			}
 
@@ -165,6 +187,43 @@ public class CircularShifter implements Observer
 		{
 			log.debug(lines.getLineAsString(i));
 		}
+	}
+
+	private List<String> generateList(String deletedLine)
+	{
+		List<String> list = new ArrayList<String>();
+
+		// convert the current line in array of words
+		StringTokenizer tokenizer = new StringTokenizer(deletedLine);
+		String[] line = new String[tokenizer.countTokens()];
+		int t = 0;
+		while (tokenizer.hasMoreTokens())
+			line[t++] = tokenizer.nextToken();
+
+		// iterate through all words of the line
+		// and make all shifts
+		for (int i = 0; i < line.length; i++)
+		{
+
+			// create a new empty shift and add all words to it
+			ArrayList words = new ArrayList();
+			for (int j = i; j < (line.length + i); j++)
+
+				// add current word to the shift
+				// index is the remainder of dividing j and line.length
+				words.add(line[j % line.length]);
+
+			StringBuilder sBuilder = new StringBuilder();
+			for (int j = 0; j < words.size() - 1; j++)
+			{
+				sBuilder.append(words.get(j));
+				sBuilder.append(" ");
+			}
+			sBuilder.append(words.get(words.size() - 1));
+
+			list.add(sBuilder.toString());
+		}
+		return list;
 	}
 
 	// ----------------------------------------------------------------------

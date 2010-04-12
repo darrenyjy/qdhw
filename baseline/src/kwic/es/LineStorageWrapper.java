@@ -173,7 +173,7 @@ public class LineStorageWrapper extends Observable
 
 		// create a new change event
 		LineStorageChangeEvent event = new LineStorageChangeEvent(
-				LineStorageChangeEvent.DELETE, "" + index);
+				LineStorageChangeEvent.DELETE, line);
 
 		// set change flag for this object
 		// we need to do this, otherwise observers won't be notified
