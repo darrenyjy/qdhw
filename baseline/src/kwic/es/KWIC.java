@@ -178,10 +178,10 @@ public class KWIC
 		// declare interest in tracking changes
 		shifts.addObserver(alphabetizer);
 
+		input.interact(lines);
+
 		// line printer
 		Output output = new Output();
-
-		input.interact(lines);
 
 		// print sorted shifts
 		output.print(shifts);

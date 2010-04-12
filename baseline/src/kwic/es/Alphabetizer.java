@@ -118,6 +118,9 @@ public class Alphabetizer implements Observer
 				}
 			}
 			break;
+		case LineStorageChangeEvent.PRINT:
+			Output output = new Output();
+			output.print(shifts);
 		default:
 			break;
 		}

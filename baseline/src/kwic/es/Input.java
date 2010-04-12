@@ -184,7 +184,9 @@ public class Input
 
 				} else if (line.equalsIgnoreCase("P"))
 				{
-					// TODO
+					lines.printLines();
+					// new LineStorageChangeEvent(LineStorageChangeEvent.PRINT,
+					// "");
 				} else
 				{
 					System.out.println("Unknown Command! Input Q to exit");

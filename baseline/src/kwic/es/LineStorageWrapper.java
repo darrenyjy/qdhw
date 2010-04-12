@@ -111,6 +111,20 @@ public class LineStorageWrapper extends Observable
 		notifyObservers(event);
 	}
 
+	public void printLines()
+	{
+		// create a new change event
+		LineStorageChangeEvent event = new LineStorageChangeEvent(
+				LineStorageChangeEvent.PRINT);
+
+		// set change flag for this object
+		// we need to do this, otherwise observers won't be notified
+		setChanged();
+
+		// send the event
+		notifyObservers(event);
+	}
+
 	// ----------------------------------------------------------------------
 	/**
 	 * Inserts a new line to this line storage wrapper. The line is inserted at
