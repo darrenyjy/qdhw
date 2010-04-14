@@ -30,6 +30,7 @@ package kwic.es;
  * $Log$
  */
 
+import java.util.ArrayList;
 import java.util.Observable;
 
 /**
@@ -242,6 +243,60 @@ public class LineStorageWrapper extends Observable
 	public int getLineCount()
 	{
 		return lines_.getLineCount();
+	}
+
+	public void deleteLine(String[] words)
+	{
+		int i;
+		String line = new String();
+		int count = lines_.getLineCount();
+		for (i = 0; i < count; i++)
+		{
+			line = lines_.getLineAsString(i);
+			String cWords[] = line.split("");
+			int j;
+			if (cWords.length != words.length)
+				continue;
+			for (j = 0; j < cWords.length; j++)
+			{
+				if (words[j].compareTo(cWords[j]) != 0)
+					break;
+			}
+			if (j == words.length)
+				this.lines_.deleteLine(i);
+		}
+		if (i != count)
+		{
+			LineStorageChangeEvent event = new LineStorageChangeEvent(
+					LineStorageChangeEvent.DELETE, line);
+			setChanged();
+			notifyObservers(event);
+		}
+		ArrayList totalWords = new ArrayList();
+
+		{
+			for (int j = 0; j < lines_.getWordCount(i); j++)
+			{
+
+				totalWords.add(lines_.getWord(j, i));
+			}
+		}
+
+		for (i = 0; i < totalWords.size(); i++)
+		{
+
+			int sum = 1;
+			for (int j = i + 1; j < totalWords.size(); j++)
+			{
+				if (totalWords.get(i).equals(totalWords.get(j)))
+				{
+					sum++;
+					totalWords.remove(j);
+				}
+			}
+			System.out.print(totalWords.get(i).toString() + ":");
+			System.out.println(sum);
+		}
 	}
 
 	// ----------------------------------------------------------------------

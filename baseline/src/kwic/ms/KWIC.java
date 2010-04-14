@@ -38,6 +38,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * The KWIC class implements the first architectural solution for the KWIC
  * system proposed by Parnas in 1972. This solution is based on functional
@@ -75,7 +78,7 @@ import java.io.InputStream;
 
 public class KWIC
 {
-
+	private static Log log = LogFactory.getLog(KWIC.class);
 	// ----------------------------------------------------------------------
 	/**
 	 * Fields
@@ -103,14 +106,19 @@ public class KWIC
 	 * 
 	 */
 
-	private int[][] circular_shifts_;
+	// private int[][] circular_shifts_;
+	private char[] shifts_chars_;
+	private int[] shifts_index_;
+	private int char_count; // count chars
+	private int shift_count; // count shifts
 
 	/**
 	 * Two dimensional array that stores alphabetized circular shifts
 	 * 
 	 */
 
-	private int[][] alphabetized_;
+	// private int[][] alphabetized_;
+	private int[] alpha_index_;
 
 	// ----------------------------------------------------------------------
 	/**
@@ -159,7 +167,7 @@ public class KWIC
 		chars_ = new char[2048];
 
 		// count of valid characters in the buffer
-		int char_count = 0;
+		char_count = 0;
 
 		// count of parsed lines
 		int line_count = 0;
@@ -371,10 +379,12 @@ public class KWIC
 		// line numbers, the second row stores the starting indices in chars
 		// array
 		// of each particular circular shift
-		circular_shifts_ = new int[2][256];
+		// circular_shifts_ = new int[2][256];
+		shifts_chars_ = new char[2048];
+		shifts_index_ = new int[256];
 
 		// count of circular shifts
-		int shift_count = 0;
+		shift_count = 0;
 
 		// iterate through lines and make circular shifts
 		for (int i = 0; i < line_index_.length; i++)
@@ -411,48 +421,143 @@ public class KWIC
 					// at the end we copy the old matrix into the new one and
 					// work
 					// further with the new one
-					if (shift_count == circular_shifts_[0].length)
+					if (shift_count == shifts_index_.length)
 					{
 
 						// copy the line number row
 						int[] tmp = new int[shift_count + 256];
-						System.arraycopy(circular_shifts_[0], 0, tmp, 0,
-								shift_count);
-						circular_shifts_[0] = tmp;
+						System.arraycopy(shifts_index_, 0, tmp, 0, shift_count);
+						shifts_index_ = tmp;
 
-						// copy the indices row
-						tmp = new int[shift_count + 256];
-						System.arraycopy(circular_shifts_[1], 0, tmp, 0,
-								shift_count);
-						circular_shifts_[1] = tmp;
+					}
+					if (char_count == shifts_chars_.length)
+					{
+						char[] new_chars = new char[char_count + 2048];
+						System.arraycopy(shifts_chars_, 0, new_chars, 0,
+								char_count);
+						shifts_chars_ = new_chars;
+					}
+					shifts_index_[shift_count] = char_count;
+					shift_count++;
+
+					int x;
+					if (chars_[j] == ' ')
+						x = j + 1;
+					else
+						x = j;
+					while (x < line_end)
+					{
+						shifts_chars_[char_count] = chars_[x];
+						x++;
+						char_count++;
 					}
 
-					// set the original line number
-					circular_shifts_[0][shift_count] = i;
-					// set the starting index of this circular shift
-					circular_shifts_[1][shift_count] = (j == line_index_[i]) ? j
-							: j + 1;
-
-					// increment the shift count
-					shift_count++;
+					int y = line_index_[i];
+					if (y < j)
+					{
+						shifts_chars_[char_count] = ' ';
+						char_count++;
+					}
+					while (y < j)
+					{
+						shifts_chars_[char_count] = chars_[y];
+						y++;
+						char_count++;
+					}
 				}
 
 			}
 		}
 
 		// set the columns size of shift matrix to the real number of shifts
-		if (shift_count != circular_shifts_[0].length)
+		if (shift_count != shifts_index_.length)
 		{
 
 			// copy the line number row
 			int[] tmp = new int[shift_count];
-			System.arraycopy(circular_shifts_[0], 0, tmp, 0, shift_count);
-			circular_shifts_[0] = tmp;
+			System.arraycopy(shifts_index_, 0, tmp, 0, shift_count);
+			shifts_index_ = tmp;
 
-			// copy the indices row
-			tmp = new int[shift_count];
-			System.arraycopy(circular_shifts_[1], 0, tmp, 0, shift_count);
-			circular_shifts_[1] = tmp;
+		}
+		if (char_count != shifts_chars_.length)
+		{
+			char[] tmp = new char[char_count];
+			System.arraycopy(shifts_chars_, 0, tmp, 0, char_count);
+			shifts_chars_ = tmp;
+		}
+	}
+
+	/**
+	 * Use filter to filter out the words that starts with number.
+	 */
+	public void filter()
+	{
+		int i = 0;
+		int length = shifts_index_.length;
+		log.debug("shifts_index_.length:" + shifts_index_.length);
+
+		while (i < length)
+		{
+			char c = shifts_chars_[shifts_index_[i]];
+
+			// digital number handling
+			if (c >= '0' && c <= '9' && i != shifts_index_.length - 1)
+			{
+				int p = shifts_index_[i];
+				for (int j = shifts_index_[i + 1]; j < shifts_chars_.length; j++)
+				{
+					shifts_chars_[p] = shifts_chars_[j];
+					p++;
+				}
+				char_count = char_count
+						- (shifts_index_[i + 1] - shifts_index_[i]);
+				int po = i;
+				for (int k = i + 1; k < shifts_index_.length; k++)
+				{
+					shifts_index_[po] = shifts_index_[k]
+							- (shifts_index_[i + 1] - shifts_index_[i]);
+					po++;
+				}
+				shift_count--;
+				length--;
+			} else if (i == shifts_index_.length - 1)
+			{
+				int p = shifts_index_[i];
+				for (int j = char_count - 1; j < shifts_chars_.length; j++)
+				{
+					shifts_chars_[p] = shifts_chars_[j];
+					p++;
+				}
+				char_count = shifts_index_[i];
+				int po = i;
+				for (int k = i + 1; k < shifts_index_.length; k++)
+				{
+					shifts_index_[po] = shifts_index_[k]
+							- (char_count - shifts_index_[i] - 1);
+					po++;
+				}
+				shift_count--;
+				length--;
+			} else
+			{
+				i++;
+			}
+		}
+
+		if (shift_count != shifts_index_.length)
+		{
+
+			// copy the line number row
+			int[] tmp = new int[shift_count];
+			System.arraycopy(shifts_index_, 0, tmp, 0, shift_count);
+			shifts_index_ = tmp;
+
+		}
+		if (char_count != shifts_chars_.length)
+		{
+			char[] tmp = new char[char_count];
+			System.arraycopy(shifts_chars_, 0, tmp, 0, char_count);
+			shifts_chars_ = tmp;
 		}
 
 	}
@@ -471,8 +576,122 @@ public class KWIC
 	public void alphabetizing()
 	{
 
-		// initialize the alphabetized matrix
-		alphabetized_ = new int[2][circular_shifts_[0].length];
+		/*
+		 * // initialize the alphabetized matrix //alphabetized_ = new
+		 * int[2][circular_shifts_[0].length]; alpha_index_ = new
+		 * int[shifts_index_.length];
+		 * 
+		 * // count of alphabetized lines int alphabetized_count = 0;
+		 * 
+		 * // we use binary search to find the proper place // to insert a line,
+		 * // declare variables for binary search int low = 0; int high = 0; int
+		 * mid = 0;
+		 * 
+		 * // process the circular shifts for(int i = 0; i <
+		 * alpha_index_.length; i++){
+		 * 
+		 * // the index of original line int line_number = shifts_index_[i];
+		 * 
+		 * // the start of the i-th shift int shift_start = chars_index_[i];
+		 * 
+		 * // the start of the original line int line_start =
+		 * line_index_[line_number];
+		 * 
+		 * // the end of the original line int line_end = 0;
+		 * 
+		 * // if the original line is the last line than line end index is //
+		 * the index of the last character if(line_number == (line_index_.length
+		 * - 1)) line_end = chars_.length;
+		 * 
+		 * // otherwise line end index is starting index of the // next line
+		 * else line_end = line_index_[line_number + 1];
+		 * 
+		 * // current shift array char[] current_shift = new char[line_end -
+		 * line_start];
+		 * 
+		 * // compose the current shift into array // compose a "real" shift
+		 * if(line_start != shift_start){ System.arraycopy(chars_, shift_start,
+		 * current_shift, 0, line_end - shift_start); current_shift[line_end -
+		 * shift_start] = ' '; System.arraycopy(chars_, line_start,
+		 * current_shift, line_end - shift_start + 1, shift_start - line_start -
+		 * 1);
+		 * 
+		 * // compose the original line }else System.arraycopy(chars_,
+		 * line_start, current_shift, 0, line_end - line_start);
+		 * 
+		 * // binary search to the right place to insert // the i-th line low =
+		 * 0; high = alphabetized_count - 1; while(low <= high){
+		 * 
+		 * // find the mid line mid = (low + high) / 2;
+		 * 
+		 * // the index of original mid line int mid_line_number =
+		 * alpha_index_[mid];
+		 * 
+		 * // the start of the mid shift int mid_shift_start =
+		 * chars_index_[mid];
+		 * 
+		 * // the start of the original mid line int mid_line_start =
+		 * line_index_[mid_line_number];
+		 * 
+		 * // the end of the original mid line int mid_line_end = 0;
+		 * 
+		 * // if the original mid line is the last line than line end index is
+		 * // the index of the last character if(mid_line_number ==
+		 * (line_index_.length - 1)) mid_line_end = chars_.length;
+		 * 
+		 * // otherwise mid line end index is starting index of the // next line
+		 * else mid_line_end = line_index_[mid_line_number + 1];
+		 * 
+		 * // current mid line array char[] mid_line = new char[mid_line_end -
+		 * mid_line_start];
+		 * 
+		 * // compose the mid line into array // compose if mid line is a "real"
+		 * shift if(mid_line_start != mid_shift_start){ System.arraycopy(chars_,
+		 * mid_shift_start, mid_line, 0, mid_line_end - mid_shift_start);
+		 * mid_line[mid_line_end - mid_shift_start] = ' ';
+		 * System.arraycopy(chars_, mid_line_start, mid_line, mid_line_end -
+		 * mid_shift_start + 1, mid_shift_start - mid_line_start - 1);
+		 * 
+		 * // compose the mid if original line }else System.arraycopy(chars_,
+		 * mid_line_start, mid_line, 0, mid_line_end - mid_line_start);
+		 * 
+		 * // find the smaller number of characters between mid and current
+		 * shift int length = (current_shift.length < mid_line.length) ?
+		 * current_shift.length : mid_line.length;
+		 * 
+		 * // comparison flag // if two lines are identical: compared = 0 // if
+		 * the first line is greater than the second one: compared = 1 // if the
+		 * first line is smaller than the second one: compared = -1 int compared
+		 * = 0;
+		 * 
+		 * // compare the lines alphabetically // comparision is case sensitive,
+		 * i.e., upper cases are considered // greater than lower cases for(int
+		 * j = 0; j < length; j++){ if(current_shift[j] > mid_line[j]){ compared
+		 * = 1; break; }else if(current_shift[j] < mid_line[j]){ compared = -1;
+		 * break; } }
+		 * 
+		 * // if compared == 0 check if the lines have the equal length // the
+		 * line that has greater length is greater than the other line
+		 * if(compared == 0){ if(current_shift.length < mid_line.length)
+		 * compared = -1; else if(current_shift.length > mid_line.length)
+		 * compared = 1; }
+		 * 
+		 * switch(compared){ case 1: // i-th line greater low = mid + 1; break;
+		 * case -1: // i-th line smaller high = mid - 1; break; default: // i-th
+		 * line equal low = mid; high = mid - 1; break; } }
+		 * 
+		 * // copy the upper part of alphabetized arrays
+		 * System.arraycopy(alpha_index_, low, alpha_index_, low + 1,
+		 * alphabetized_count - low); System.arraycopy(chars_index_, low,
+		 * chars_index_, low + 1, alphabetized_count - low);
+		 * 
+		 * // insert the i-th shifted line alpha_index_[low] = line_number;
+		 * chars_index_[low] = shift_start;
+		 * 
+		 * // increment the count of alphabetized shifted lines
+		 * alphabetized_count++;
+		 */
+		alpha_index_ = new int[shifts_index_.length];
 
 		// count of alphabetized lines
 		int alphabetized_count = 0;
@@ -484,170 +703,30 @@ public class KWIC
 		int high = 0;
 		int mid = 0;
 
-		// process the circular shifts
-		for (int i = 0; i < alphabetized_[0].length; i++)
+		for (int i = 0; i < shifts_index_.length; i++)
 		{
-
-			// the index of original line
-			int line_number = circular_shifts_[0][i];
-
-			// the start of the i-th shift
-			int shift_start = circular_shifts_[1][i];
-
-			// the start of the original line
-			int line_start = line_index_[line_number];
-
-			// the end of the original line
-			int line_end = 0;
-
-			// if the original line is the last line than line end index is
-			// the index of the last character
-			if (line_number == (line_index_.length - 1))
-				line_end = chars_.length;
-
-			// otherwise line end index is starting index of the
-			// next line
-			else
-				line_end = line_index_[line_number + 1];
-
-			// current shift array
-			char[] current_shift = new char[line_end - line_start];
-
-			// compose the current shift into array
-			// compose a "real" shift
-			if (line_start != shift_start)
-			{
-				System.arraycopy(chars_, shift_start, current_shift, 0,
-						line_end - shift_start);
-				current_shift[line_end - shift_start] = ' ';
-				System.arraycopy(chars_, line_start, current_shift, line_end
-						- shift_start + 1, shift_start - line_start - 1);
-
-				// compose the original line
-			} else
-				System.arraycopy(chars_, line_start, current_shift, 0, line_end
-						- line_start);
-
-			// binary search to the right place to insert
-			// the i-th line
+			char c = shifts_chars_[shifts_index_[i]];
+			char temp;
 			low = 0;
 			high = alphabetized_count - 1;
 			while (low <= high)
 			{
-
-				// find the mid line
 				mid = (low + high) / 2;
-
-				// the index of original mid line
-				int mid_line_number = alphabetized_[0][mid];
-
-				// the start of the mid shift
-				int mid_shift_start = alphabetized_[1][mid];
-
-				// the start of the original mid line
-				int mid_line_start = line_index_[mid_line_number];
-
-				// the end of the original mid line
-				int mid_line_end = 0;
-
-				// if the original mid line is the last line than line end index
-				// is
-				// the index of the last character
-				if (mid_line_number == (line_index_.length - 1))
-					mid_line_end = chars_.length;
-
-				// otherwise mid line end index is starting index of the
-				// next line
+				temp = shifts_chars_[alpha_index_[mid]];
+				if (c < temp)
+					high = mid - 1;
 				else
-					mid_line_end = line_index_[mid_line_number + 1];
-
-				// current mid line array
-				char[] mid_line = new char[mid_line_end - mid_line_start];
-
-				// compose the mid line into array
-				// compose if mid line is a "real" shift
-				if (mid_line_start != mid_shift_start)
-				{
-					System.arraycopy(chars_, mid_shift_start, mid_line, 0,
-							mid_line_end - mid_shift_start);
-					mid_line[mid_line_end - mid_shift_start] = ' ';
-					System.arraycopy(chars_, mid_line_start, mid_line,
-							mid_line_end - mid_shift_start + 1, mid_shift_start
-									- mid_line_start - 1);
-
-					// compose the mid if original line
-				} else
-					System.arraycopy(chars_, mid_line_start, mid_line, 0,
-							mid_line_end - mid_line_start);
-
-				// find the smaller number of characters between mid and current
-				// shift
-				int length = (current_shift.length < mid_line.length) ? current_shift.length
-						: mid_line.length;
-
-				// comparison flag
-				// if two lines are identical: compared = 0
-				// if the first line is greater than the second one: compared =
-				// 1
-				// if the first line is smaller than the second one: compared =
-				// -1
-				int compared = 0;
-
-				// compare the lines alphabetically
-				// comparision is case sensitive, i.e., upper cases are
-				// considered
-				// greater than lower cases
-				for (int j = 0; j < length; j++)
-				{
-					if (current_shift[j] > mid_line[j])
-					{
-						compared = 1;
-						break;
-					} else if (current_shift[j] < mid_line[j])
-					{
-						compared = -1;
-						break;
-					}
-				}
-
-				// if compared == 0 check if the lines have the equal length
-				// the line that has greater length is greater than the other
-				// line
-				if (compared == 0)
-				{
-					if (current_shift.length < mid_line.length)
-						compared = -1;
-					else if (current_shift.length > mid_line.length)
-						compared = 1;
-				}
-
-				switch (compared)
-				{
-				case 1: // i-th line greater
 					low = mid + 1;
-					break;
-				case -1: // i-th line smaller
-					high = mid - 1;
-					break;
-				default: // i-th line equal
-					low = mid;
-					high = mid - 1;
-					break;
-				}
+
 			}
 
-			// copy the upper part of alphabetized arrays
-			System.arraycopy(alphabetized_[0], low, alphabetized_[0], low + 1,
-					alphabetized_count - low);
-			System.arraycopy(alphabetized_[1], low, alphabetized_[1], low + 1,
-					alphabetized_count - low);
-
-			// insert the i-th shifted line
-			alphabetized_[0][low] = line_number;
-			alphabetized_[1][low] = shift_start;
-
-			// increment the count of alphabetized shifted lines
+			for (int j = alphabetized_count - 1; j >= low; j--)
+			{
+				alpha_index_[j + 1] = alpha_index_[j];
+			}
+			alpha_index_[low] = shifts_index_[i];
 			alphabetized_count++;
+
 		}
 	}
 
@@ -662,27 +741,41 @@ public class KWIC
 
 	public void output()
 	{
-		for (int i = 0; i < alphabetized_[0].length; i++)
+		int count;
+		for (int i = 0; i < alpha_index_.length; i++)
 		{
-			int line_number = alphabetized_[0][i];
-			int shift_start = alphabetized_[1][i];
-			int line_start = line_index_[line_number];
-			int line_end = 0;
-			if (line_number == (line_index_.length - 1))
-				line_end = chars_.length;
-			else
-				line_end = line_index_[line_number + 1];
-			if (line_start != shift_start)
+			count = alpha_index_[i];
+			System.out.print(shifts_chars_[count]);
+			count++;
+			// if it is line end
+			boolean isLine;
+
+			while (count < shifts_chars_.length)
 			{
-				for (int j = shift_start; j < line_end; j++)
-					System.out.print(chars_[j]);
-				System.out.print(' ');
-				for (int j = line_start; j < (shift_start - 1); j++)
-					System.out.print(chars_[j]);
-			} else
-				for (int j = line_start; j < line_end; j++)
-					System.out.print(chars_[j]);
-			System.out.print('\n');
+				isLine = true;
+				for (int j = 0; j < alpha_index_.length; j++)
+				{
+					if (count == alpha_index_[j])
+					{
+						isLine = false;
+						break;
+					}
+				}
+				if (isLine == true)
+				{
+					System.out.print(shifts_chars_[count]);
+					count++;
+				}
+				if (count == shifts_chars_.length)
+				{
+					System.out.println();
+				}
+				if (isLine == false)
+				{
+					System.out.println();
+					break;
+				}
+			}
 		}
 	}
 
@@ -717,6 +810,7 @@ public class KWIC
 		}
 		kwic.input(args[0]);
 		kwic.circularShift();
+		kwic.filter();
 		kwic.alphabetizing();
 		kwic.output();
 	}

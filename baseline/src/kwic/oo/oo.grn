@@ -51,22 +51,8 @@
    </type>
    <relationship>
       <class="edu.buffalo.cse.green.relationship.dependency.DependencyLPart"/>
-      <sourceType="=Kwic/src<kwic.oo{LineStorage.java[LineStorage"/>
-      <targetType="=Kwic/src<kwic.oo{Line.java[Line"/>
-      <bendpoints>
-      </bendpoints>
-   </relationship>
-   <relationship>
-      <class="edu.buffalo.cse.green.relationship.dependency.DependencyLPart"/>
       <sourceType="=Kwic/src<kwic.oo{KWIC.java[KWIC"/>
-      <targetType="=Kwic/src<kwic.oo{LineStorage.java[LineStorage"/>
-      <bendpoints>
-      </bendpoints>
-   </relationship>
-   <relationship>
-      <class="edu.buffalo.cse.green.relationship.dependency.DependencyLPart"/>
-      <sourceType="=Kwic/src<kwic.oo{KWIC.java[KWIC"/>
-      <targetType="=Kwic/src<kwic.oo{Input.java[Input"/>
+      <targetType="=Kwic/src<kwic.oo{Alphabetizer.java[Alphabetizer"/>
       <bendpoints>
       </bendpoints>
    </relationship>
@@ -80,14 +66,28 @@
    <relationship>
       <class="edu.buffalo.cse.green.relationship.dependency.DependencyLPart"/>
       <sourceType="=Kwic/src<kwic.oo{KWIC.java[KWIC"/>
-      <targetType="=Kwic/src<kwic.oo{Output.java[Output"/>
+      <targetType="=Kwic/src<kwic.oo{Input.java[Input"/>
       <bendpoints>
       </bendpoints>
    </relationship>
    <relationship>
       <class="edu.buffalo.cse.green.relationship.dependency.DependencyLPart"/>
       <sourceType="=Kwic/src<kwic.oo{KWIC.java[KWIC"/>
-      <targetType="=Kwic/src<kwic.oo{Alphabetizer.java[Alphabetizer"/>
+      <targetType="=Kwic/src<kwic.oo{LineStorage.java[LineStorage"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.dependency.DependencyLPart"/>
+      <sourceType="=Kwic/src<kwic.oo{KWIC.java[KWIC"/>
+      <targetType="=Kwic/src<kwic.oo{Output.java[Output"/>
+      <bendpoints>
+      </bendpoints>
+   </relationship>
+   <relationship>
+      <class="edu.buffalo.cse.green.relationship.dependency.DependencyLPart"/>
+      <sourceType="=Kwic/src<kwic.oo{LineStorage.java[LineStorage"/>
+      <targetType="=Kwic/src<kwic.oo{Line.java[Line"/>
       <bendpoints>
       </bendpoints>
    </relationship>

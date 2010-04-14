@@ -1,86 +1,21 @@
-10-04-01 14:15:32: INFO   kwic.oo.KWIC  - commandtest.txt
-10-04-01 14:16:03: INFO   kwic.oo.KWIC  - commandtest.txt
-10-04-01 14:20:24: DEBUG  kwic.oo.KWIC  - [Ljava.lang.String;@1aaf0b3
-10-04-01 14:20:27: DEBUG  kwic.oo.KWIC  - [Ljava.lang.String;@f0c85e
-10-04-01 14:20:57: DEBUG  kwic.oo.KWIC  - [Ljava.lang.String;@1a082e2
-10-04-01 14:20:59: DEBUG  kwic.oo.KWIC  - [Ljava.lang.String;@1aaf0b3
-10-04-01 14:21:02: DEBUG  kwic.oo.KWIC  - [Ljava.lang.String;@1aaf0b3
-10-04-01 14:22:27: INFO   kwic.oo.KWIC  - command:null
-10-04-01 14:49:17: INFO   kwic.oo.KWIC  - command:null
-10-04-01 14:50:57: INFO   kwic.oo.KWIC  - command:null
-10-04-02 22:30:48: DEBUG  kwic.pf.KWIC  - Start
-10-04-02 22:33:38: DEBUG  kwic.pf.KWIC  - Start
-10-04-02 22:33:38: DEBUG  kwic.pf.ShiftFilter  - SF created
-10-04-02 22:33:38: DEBUG  kwic.pf.ShiftFilter  - ShiftFilter start.
-10-04-02 22:39:58: DEBUG  kwic.pf.KWIC  - Start
-10-04-02 22:39:58: DEBUG  kwic.pf.ShiftFilter  - SF created
-10-04-02 22:39:58: DEBUG  kwic.pf.ShiftFilter  - ShiftFilter start.
-10-04-02 22:43:28: DEBUG  kwic.pf.KWIC  - Start
-10-04-02 22:43:28: DEBUG  kwic.pf.ShiftFilter  - SF created
-10-04-02 22:43:28: DEBUG  kwic.pf.ShiftFilter  - ShiftFilter start.
-10-04-02 22:43:28: DEBUG  kwic.pf.ShiftFilter  - reading
-10-04-03 09:00:07: DEBUG  kwic.pf.KWIC  - Start
-10-04-03 09:00:07: DEBUG  kwic.pf.ShiftFilter  - SF created
-10-04-03 09:00:07: DEBUG  kwic.pf.ShiftFilter  - ShiftFilter start.
-10-04-03 09:00:07: DEBUG  kwic.pf.ShiftFilter  - reading
-10-04-03 09:00:07: DEBUG  kwic.pf.ShiftFilter  - Got a line
-10-04-03 09:00:07: DEBUG  kwic.pf.ShiftFilter  - I Am
-10-04-03 09:00:07: DEBUG  kwic.pf.ShiftFilter  - [Ljava.lang.String;@d73c7a
-10-04-03 09:00:07: DEBUG  kwic.pf.ShiftFilter  - Got a line
-10-04-03 09:00:07: DEBUG  kwic.pf.ShiftFilter  - I AmYou Are
-10-04-03 09:00:07: DEBUG  kwic.pf.ShiftFilter  - [Ljava.lang.String;@c39a20
-10-04-03 09:00:07: DEBUG  kwic.pf.ShiftFilter  - Noise set:[You]
-10-04-03 09:02:35: DEBUG  kwic.pf.KWIC  - Start
-10-04-03 09:02:35: DEBUG  kwic.pf.ShiftFilter  - SF created
-10-04-03 09:02:35: DEBUG  kwic.pf.ShiftFilter  - ShiftFilter start.
-10-04-03 09:02:35: DEBUG  kwic.pf.ShiftFilter  - reading
-10-04-03 09:02:35: DEBUG  kwic.pf.ShiftFilter  - Got a line
-10-04-03 09:02:35: DEBUG  kwic.pf.ShiftFilter  - I Am
-10-04-03 09:02:35: DEBUG  kwic.pf.ShiftFilter  - Got a line
-10-04-03 09:02:35: DEBUG  kwic.pf.ShiftFilter  - I AmYou Are
-10-04-03 09:03:38: DEBUG  kwic.pf.KWIC  - Start
-10-04-03 09:03:38: DEBUG  kwic.pf.ShiftFilter  - SF created
-10-04-03 09:03:38: DEBUG  kwic.pf.ShiftFilter  - ShiftFilter start.
-10-04-03 09:03:38: DEBUG  kwic.pf.ShiftFilter  - reading
-10-04-03 09:03:38: DEBUG  kwic.pf.ShiftFilter  - Got a line
-10-04-03 09:03:38: DEBUG  kwic.pf.ShiftFilter  - I Am
-10-04-03 09:03:38: DEBUG  kwic.pf.ShiftFilter  - Got a line
-10-04-03 09:03:38: DEBUG  kwic.pf.ShiftFilter  - I AmYou Are
-10-04-03 09:04:10: DEBUG  kwic.pf.KWIC  - Start
-10-04-03 09:04:10: DEBUG  kwic.pf.ShiftFilter  - SF created
-10-04-03 09:04:10: DEBUG  kwic.pf.ShiftFilter  - ShiftFilter start.
-10-04-03 09:04:10: DEBUG  kwic.pf.ShiftFilter  - reading
-10-04-03 09:04:10: DEBUG  kwic.pf.ShiftFilter  - Got a line
-10-04-03 09:04:10: DEBUG  kwic.pf.ShiftFilter  - I Am
-10-04-03 09:04:10: DEBUG  kwic.pf.ShiftFilter  - Got a line
-10-04-03 09:04:10: DEBUG  kwic.pf.ShiftFilter  - You Are
-10-04-03 09:04:10: DEBUG  kwic.pf.ShiftFilter  - Noise found: You
-10-04-03 09:07:19: DEBUG  kwic.pf.KWIC  - Start
-10-04-03 09:07:19: DEBUG  kwic.pf.ShiftFilter  - SF created
-10-04-03 09:07:19: DEBUG  kwic.pf.ShiftFilter  - ShiftFilter start.
-10-04-03 09:07:19: DEBUG  kwic.pf.ShiftFilter  - reading
-10-04-03 09:07:19: DEBUG  kwic.pf.ShiftFilter  - Got a line
-10-04-03 09:07:19: DEBUG  kwic.pf.ShiftFilter  - I Am
-10-04-03 09:07:19: DEBUG  kwic.pf.ShiftFilter  - Got a line
-10-04-03 09:07:19: DEBUG  kwic.pf.ShiftFilter  - You Are
-10-04-03 09:07:19: DEBUG  kwic.pf.ShiftFilter  - Noise found: You
-10-04-03 09:07:59: DEBUG  kwic.pf.KWIC  - Start
-10-04-03 09:07:59: DEBUG  kwic.pf.ShiftFilter  - SF created
-10-04-03 09:07:59: DEBUG  kwic.pf.ShiftFilter  - ShiftFilter start.
-10-04-03 09:07:59: DEBUG  kwic.pf.ShiftFilter  - reading
-10-04-03 09:07:59: DEBUG  kwic.pf.ShiftFilter  - Got a line
-10-04-03 09:07:59: DEBUG  kwic.pf.ShiftFilter  - I Am
-10-04-03 09:07:59: DEBUG  kwic.pf.ShiftFilter  - Got a line
-10-04-03 09:07:59: DEBUG  kwic.pf.ShiftFilter  - You Are
-10-04-03 09:07:59: DEBUG  kwic.pf.ShiftFilter  - Noise found: You, filtered.
-10-04-03 09:09:25: DEBUG  kwic.pf.KWIC  - Start
-10-04-03 09:09:25: DEBUG  kwic.pf.ShiftFilter  - SF created
-10-04-03 09:09:25: DEBUG  kwic.pf.ShiftFilter  - ShiftFilter start.
-10-04-03 09:09:25: DEBUG  kwic.pf.ShiftFilter  - reading
-10-04-03 09:09:25: DEBUG  kwic.pf.ShiftFilter  - Got a line
-10-04-03 09:09:25: DEBUG  kwic.pf.ShiftFilter  - I Am Sorry For You
-10-04-03 09:09:25: DEBUG  kwic.pf.ShiftFilter  - Filtered noise : I
-10-04-03 09:09:25: DEBUG  kwic.pf.ShiftFilter  - Filtered noise : You
-10-04-03 09:09:25: DEBUG  kwic.pf.ShiftFilter  - Got a line
-10-04-03 09:09:25: DEBUG  kwic.pf.ShiftFilter  - You Are Right
-10-04-03 09:09:25: DEBUG  kwic.pf.ShiftFilter  - Filtered noise : You
+10-04-14 19:21:43: DEBUG  kwic.pf.KWIC  - Start
+10-04-14 19:21:43: DEBUG  kwic.pf.ShiftFilter  - ShiftFilter start.
+10-04-14 19:21:43: DEBUG  kwic.pf.ShiftFilter  - reading
+10-04-14 19:21:43: DEBUG  kwic.pf.LineTransformer  - reading
+10-04-14 19:21:43: DEBUG  kwic.pf.LineTransformer  - reading
+10-04-14 19:21:43: DEBUG  kwic.pf.ShiftFilter  - Got a line
+10-04-14 19:21:43: DEBUG  kwic.pf.ShiftFilter  - I Am
+10-04-14 19:21:43: DEBUG  kwic.pf.ShiftFilter  - Got a line
+10-04-14 19:21:43: DEBUG  kwic.pf.ShiftFilter  - You Are
+10-04-14 19:21:43: DEBUG  kwic.pf.LineTransformer  - Got a line
+10-04-14 19:21:43: DEBUG  kwic.pf.LineTransformer  - I Am
+10-04-14 19:21:43: DEBUG  kwic.pf.LineTransformer  - Got a line
+10-04-14 19:21:43: DEBUG  kwic.pf.LineTransformer  - You Are
+10-04-14 19:21:43: DEBUG  kwic.pf.LineTransformer  - Got a line
+10-04-14 19:21:43: DEBUG  kwic.pf.LineTransformer  - I Am
+10-04-14 19:21:43: DEBUG  kwic.pf.LineTransformer  - Got a line
+10-04-14 19:21:43: DEBUG  kwic.pf.LineTransformer  - Am I
+10-04-14 19:21:43: DEBUG  kwic.pf.LineTransformer  - Got a line
+10-04-14 19:21:43: DEBUG  kwic.pf.LineTransformer  - YOU Are
+10-04-14 19:21:43: DEBUG  kwic.pf.LineTransformer  - Got a line
+10-04-14 19:21:43: DEBUG  kwic.pf.LineTransformer  - Are YOU
