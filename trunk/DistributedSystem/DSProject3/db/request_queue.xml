@@ -409,4 +409,12 @@
     <InputBookName>C Language</InputBookName>
     <InputQuantity>2</InputQuantity>
   </Request>
+  <Request>
+    <RequestID>52</RequestID>
+    <InputAccountName>libing</InputAccountName>
+    <InputAccountPassword>111111</InputAccountPassword>
+    <InputCreditCardNumber>1234567890</InputCreditCardNumber>
+    <InputBookName>C Language</InputBookName>
+    <InputQuantity>2</InputQuantity>
+  </Request>
 </RequestQueue>
