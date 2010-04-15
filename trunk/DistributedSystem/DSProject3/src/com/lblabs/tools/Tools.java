@@ -1,30 +1,32 @@
 package com.lblabs.tools;
 
-import java.util.Hashtable;
 import java.util.Enumeration;
+import java.util.Hashtable;
 
-public class Tools 
+public class Tools
 {
 	public String convertHashToString(Hashtable hashValue)
 	{
 		String strValue = "";
-		Enumeration enum = hashValue.keys();
-		while (enum.hasMoreElements())
+		Enumeration enumeration = hashValue.keys();
+		while (enumeration.hasMoreElements())
 		{
-			strValue += (String)hashValue.get((String)enum.nextElement()) + "#";
+			strValue += (String) hashValue.get((String) enumeration
+					.nextElement())
+					+ "#";
 		}
 		return strValue;
 	}
-	
+
 	public Hashtable convertStringToHash(String strValue)
 	{
 		int num = 0;
 		int index = strValue.indexOf("#");
 		Hashtable hashValue = new Hashtable();
-		String str = null;
+		// String str = null;
 		while (index >= 0)
 		{
-			hashValue.put(str.valueOf(num ++), strValue.substring(0, index));
+			hashValue.put(String.valueOf(num++), strValue.substring(0, index));
 			strValue = strValue.substring(index + 1);
 			index = strValue.indexOf("#");
 		}
@@ -33,8 +35,8 @@ public class Tools
 
 	public String convertBooleanToString(boolean boolValue)
 	{
-		String str = null;
-		return str.valueOf(boolValue);
+		// String str = null;
+		return String.valueOf(boolValue);
 	}
 
 	public float convertStringToFloat(String floatStr)
@@ -51,13 +53,13 @@ public class Tools
 
 	public String convertIntToString(int intValue)
 	{
-		String str = null;
-		return str.valueOf(intValue);
+		// String str = null;
+		return String.valueOf(intValue);
 	}
 
 	public String convertFloatToString(float floatValue)
 	{
-		String str = null;
-		return str.valueOf(floatValue);
+		// String str = null;
+		return String.valueOf(floatValue);
 	}
 }
