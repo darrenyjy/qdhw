@@ -2,6 +2,9 @@ package com.lblabs.business;
 
 import java.util.Hashtable;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.lblabs.net.BookRetailer;
 
 class BusinessClientThread extends Thread
@@ -9,6 +12,7 @@ class BusinessClientThread extends Thread
 	String threadID;
 	String workSequence;
 	BookRetailer bookRetailer = new BookRetailer();
+	private static Log log = LogFactory.getLog(BusinessClientThread.class);
 
 	public BusinessClientThread(String threadID, String workSequence)
 	{
@@ -27,76 +31,76 @@ class BusinessClientThread extends Thread
 			workSequence = workSequence.substring(index + 1);
 			Integer bigInt = new Integer(sequenceString);
 			sequence = bigInt.intValue();
-			// System.out.println(threadID + ": sequence = " + sequence);
+			// log.debug(threadID + ": sequence = " + sequence);
 
 			switch (sequence)
 			{
 			case 0:
-				System.out.println(threadID + ": isConnectionAvailable()");
+				log.debug(threadID + ": isConnectionAvailable()");
 				boolean isConnectionAvailable = false;
 				while (!isConnectionAvailable)
 				{
 					isConnectionAvailable = bookRetailer
 							.isConnectionAvailable(threadID);
-					System.out.println(threadID + ": isConnectionAvailable = "
+					log.debug(threadID + ": isConnectionAvailable = "
 							+ isConnectionAvailable);
 					try
 					{
 						Thread.sleep(2000);
 					} catch (Exception e)
 					{
-						System.out.println(e);
+						log.error(e);
 					}
 				}
 				break;
 
 			case 1:
-				System.out.println(threadID + ": signIn()");
+				log.debug(threadID + ": signIn()");
 				boolean isSignedIn = bookRetailer.signIn(threadID);
 				if (isSignedIn)
 				{
-					System.out.println(threadID + ": Signin succcessfully!");
+					log.debug(threadID + ": Signin succcessfully!");
 				} else
 				{
-					System.out.println(threadID + ": Signin failed!");
+					log.debug(threadID + ": Signin failed!");
 				}
 				break;
 
 			case 2:
-				System.out.println(threadID + ": signOut()");
+				log.debug(threadID + ": signOut()");
 				boolean isSignedOut = bookRetailer.signOut(threadID);
 				if (isSignedOut)
 				{
-					System.out.println(threadID + ": Signout successfully!");
+					log.debug(threadID + ": Signout successfully!");
 				} else
 				{
-					System.out.println(threadID + ": Signout failed!");
+					log.debug(threadID + ": Signout failed!");
 				}
 				break;
 
 			case 3:
-				System.out.println(threadID + ": getPrice()");
+				log.debug(threadID + ": getPrice()");
 				float price = bookRetailer.getPrice("C Language");
-				System.out.println(threadID + ": price = " + price);
+				log.debug(threadID + ": price = " + price);
 				break;
 
 			case 4:
-				System.out.println(threadID + ": getPublisher()");
+				log.debug(threadID + ": getPublisher()");
 				String publisher = bookRetailer.getPublisher("C Language");
-				System.out.println(threadID + ": publisher = " + publisher);
+				log.debug(threadID + ": publisher = " + publisher);
 				break;
 
 			case 5:
-				System.out.println(threadID + ": getAuthor()");
+				log.debug(threadID + ": getAuthor()");
 				String author = bookRetailer.getAuthor("C Language");
-				System.out.println(threadID + ": author = " + author);
+				log.debug(threadID + ": author = " + author);
 				break;
 
 			case 6:
-				System.out.println(threadID + ": buyBooks()");
+				log.debug(threadID + ": buyBooks()");
 				Hashtable responseHash = bookRetailer.buyBooks("libing",
 						"111111", "1234567890", "C Language", 2);
-				System.out.println(threadID + ": response = " + responseHash);
+				log.debug(threadID + ": response = " + responseHash);
 				break;
 			}
 			index = workSequence.indexOf("#");

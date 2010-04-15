@@ -8,6 +8,9 @@ import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.lblabs.business.BookRetailer;
 import com.lblabs.tools.Queue;
 import com.lblabs.tools.Tools;
@@ -15,6 +18,7 @@ import com.lblabs.tools.Tools;
 public class Server
 {
 	static final int size = 1024;
+	private static Log log = LogFactory.getLog(Server.class);
 
 	public static void main(String argv[])
 	{
@@ -40,7 +44,7 @@ public class Server
 				Thread.sleep(100);
 			} catch (Exception e)
 			{
-				System.out.println(e);
+				log.error(e);
 			}
 
 			if (!generalRequestQueue.isEmpty())
@@ -60,6 +64,7 @@ public class Server
 				{
 					// System.out.println("connectionStatus.getRegularConnection() = "
 					// + connectionStatus.getRegularConnection());
+
 					if (connectionStatus.getRegularConnection())
 					{
 						threadIDList.add(requestMessage.threadID);
@@ -100,6 +105,8 @@ class Communicator extends Thread
 	Queue generalResponseQueue;
 	Responser responser;
 
+	private static Log log = LogFactory.getLog(Communicator.class);
+
 	public Communicator(Hashtable requestQueueHash, Queue generalRequestQueue,
 			Queue generalResponseQueue)
 	{
@@ -112,11 +119,11 @@ class Communicator extends Thread
 		} catch (SocketException e)
 		{
 			// Something went wrong with the socket connection
-			System.out.println(e.toString());
+			log.error(e.toString());
 		} catch (IOException e)
 		{
 			// Something went wrong on receive
-			System.out.println(e.toString());
+			log.error(e.toString());
 		}
 		responser = new Responser(socket, generalResponseQueue);
 		responser.start();
@@ -145,7 +152,7 @@ class Communicator extends Thread
 				packet = new DatagramPacket(reqBuffer, size);
 
 				// wait for message from client
-				System.out.println("Waiting for requests ...");
+				log.debug("Waiting for requests ...");
 				socket.receive(packet);
 
 				// extract information from datagram packet
@@ -160,13 +167,11 @@ class Communicator extends Thread
 				{
 					index = request.indexOf("|");
 					threadID = request.substring(0, index);
-					System.out.println("threadID (in commuicator) = "
-							+ threadID);
+					log.debug("threadID (in commuicator) = " + threadID);
 					request = request.substring(index + 1);
 					index = request.indexOf("|");
 					methodName = request.substring(0, index);
-					System.out.println("methodName (in communicator) = "
-							+ methodName);
+					log.debug("methodName (in communicator) = " + methodName);
 					request = request.substring(index + 1);
 					index = request.indexOf("|");
 					parameterString = request.substring(0, index);
@@ -198,11 +203,11 @@ class Communicator extends Thread
 		} catch (SocketException e)
 		{
 			// Something went wrong with the socket connection
-			System.out.println(e.toString());
+			log.error(e.toString());
 		} catch (IOException e)
 		{
 			// Something went wrong on receive
-			System.out.println(e.toString());
+			log.error(e.toString());
 		}
 	}
 }
@@ -213,6 +218,7 @@ class Responser extends Thread
 	DatagramPacket packet;
 	int size = 1024;
 	Queue generalResponseQueue;
+	private static Log log = LogFactory.getLog(Responser.class);
 
 	public Responser(DatagramSocket socket, Queue generalResponseQueue)
 	{
@@ -229,7 +235,7 @@ class Responser extends Thread
 				Thread.sleep(1);
 			} catch (Exception e)
 			{
-				System.out.println(e);
+				log.debug(e);
 			}
 			if (!generalResponseQueue.isEmpty())
 			{
@@ -255,11 +261,11 @@ class Responser extends Thread
 				} catch (SocketException e)
 				{
 					// Something went wrong with the socket connection
-					System.out.println(e.toString());
+					log.error(e.toString());
 				} catch (IOException e)
 				{
 					// Something went wrong on receive
-					System.out.println(e.toString());
+					log.error(e.toString());
 				}
 			}
 		}
@@ -276,12 +282,13 @@ class BusinessServerThread extends Thread
 	BookRetailer bookRetailer = new BookRetailer();
 	RequestMessage requestMessage = new RequestMessage();
 	ResponseMessage responseMessage = new ResponseMessage();
+	private static Log log = LogFactory.getLog(BusinessServerThread.class);
 
 	public BusinessServerThread(String threadID, ArrayList threadIDList,
 			Queue requestQueue, Queue generalResponseQueue,
 			ConnectionStatus connectionStatus)
 	{
-		System.out.println("New BusinessServerThread for " + threadID);
+		log.debug("New BusinessServerThread for " + threadID);
 		this.threadID = threadID;
 		this.threadIDList = threadIDList;
 		this.requestQueue = requestQueue;
@@ -300,7 +307,7 @@ class BusinessServerThread extends Thread
 				Thread.sleep(1);
 			} catch (Exception e)
 			{
-				System.out.println(e);
+				log.debug(e);
 			}
 			if (!requestQueue.isEmpty())
 			{
@@ -406,6 +413,7 @@ class ConnectionStatus
 	int criticalConnectionLimitation = 1;
 	int currentConnection = 0;
 	int currentCriticalConnection = 0;
+	private static Log log = LogFactory.getLog(ConnectionStatus.class);
 
 	public boolean getRegularConnection()
 	{
