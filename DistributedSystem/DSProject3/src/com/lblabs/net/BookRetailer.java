@@ -1,7 +1,9 @@
 package com.lblabs.net;
 
-import java.io.*;
-import java.net.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.Socket;
 import java.util.Hashtable;
 
 public class BookRetailer
@@ -19,9 +21,8 @@ public class BookRetailer
 	{
 		try
 		{
-			socket = new Socket(host, port , false);
-		}
-		catch (IOException e)
+			socket = new Socket(host, port, false);
+		} catch (IOException e)
 		{
 			System.out.println(e);
 		}
@@ -57,8 +58,7 @@ public class BookRetailer
 		if (response != null)
 		{
 			return this.convertStringToFloat(response);
-		}
-		else
+		} else
 		{
 			return -1;
 		}
@@ -78,9 +78,14 @@ public class BookRetailer
 		return response;
 	}
 
-	public Hashtable buyBooks(String inputAccountName, String inputAccountPassword, String inputCreditCardNumber, String inputBookName, int inputQuantity)
+	public Hashtable buyBooks(String inputAccountName,
+			String inputAccountPassword, String inputCreditCardNumber,
+			String inputBookName, int inputQuantity)
 	{
-		request = threadID + "|buyBooks|" + inputAccountName + "#" + inputAccountPassword + "#" + inputCreditCardNumber + "#" + inputBookName + "#" + this.convertIntToString(inputQuantity) + "#|";
+		request = threadID + "|buyBooks|" + inputAccountName + "#"
+				+ inputAccountPassword + "#" + inputCreditCardNumber + "#"
+				+ inputBookName + "#" + this.convertIntToString(inputQuantity)
+				+ "#|";
 		response = this.sendRequest(request);
 		Hashtable responseHash = this.convertStringToHash(response);
 		return responseHash;
@@ -104,8 +109,7 @@ public class BookRetailer
 			response = new String(buffer);
 			int index = response.lastIndexOf("#");
 			return response.substring(0, index);
-		}
-		catch (IOException e)
+		} catch (IOException e)
 		{
 			return null;
 		}
@@ -116,10 +120,10 @@ public class BookRetailer
 		int num = 0;
 		int index = strValue.indexOf("#");
 		Hashtable hashValue = new Hashtable();
-		String str = null;
+		// String str = null;
 		while (index >= 0)
 		{
-			hashValue.put(str.valueOf(num ++), strValue.substring(0, index));
+			hashValue.put(String.valueOf(num++), strValue.substring(0, index));
 			strValue = strValue.substring(index + 1);
 			index = strValue.indexOf("#");
 		}
@@ -128,8 +132,8 @@ public class BookRetailer
 
 	private String convertIntToString(int intValue)
 	{
-		String str = null;
-		return str.valueOf(intValue);
+		// String str = null;
+		return String.valueOf(intValue);
 	}
 
 	private float convertStringToFloat(String floatString)
