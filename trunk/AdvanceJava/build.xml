@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ProjectName" default="compile" basedir=".">
+	<property name="dir.build" location="build" />
+	<property name="dir.build.product" location="${dir.build}/product" />
+	<property name="dir.build.classes" location="${dir.build}/classes" />
+	<property name="dir.build.test" location="${dir.build}/test" />
+	<property name="dir.build.doc" location="${dir.build}/doc" />
+	<property name="dir.build.lib" location="${dir.build}/lib" />
+	<property name="dir.doc" location="doc" />
+	<property name="dir.index" location="index" />
+	<property name="dir.src" location="src" />
+	<property name="dir.test" location="${src.dir}/test" />
+	<property name="dir.lib" location="lib" />
+
+	<path id="project.classpath">
+		<pathelement location="${dir.build.classes}" />
+		<fileset dir="${dir.lib}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
+	<!-- ================================= 
+          target: prepare              
+         ================================= -->
+	<target name="prepare" description="Prepare project for building">
+		<mkdir dir="${dir.build.product}" />
+		<mkdir dir="${dir.build.classes}" />
+		<mkdir dir="${dir.build.test}" />
+		<mkdir dir="${dir.build.lib}" />
+		<mkdir dir="${dir.lib}" />
+	<!--	<copy file="${dir.lib}/**/*.jar" todir="${dir.build.lib}"/> -->
+	</target>
+
+	<!-- ================================= 
+          target: compile              
+         ================================= -->
+	<target name="compile" depends="prepare" description="Compile source code to build classes folder">
+		<javac srcdir="${dir.src}" destdir="${dir.build.classes}" debug="on">
+		</javac>
+	</target>
+
+
+	<!-- ================================= 
+          target: test              
+         ================================= -->
+	<target name="test" depends="compile" description="Test source code">
+		<junit printsummary="on" haltonfailure="true" failureproperty="tests.failed" showoutput="true">
+			<classpath refid="project.classpath" />
+			<formatter type="brief" usefile="false" />
+			<batchtest>
+				<fileset dir="${dir.build.classes}">
+					<include name="**/*Test.class" />
+				</fileset>
+			</batchtest>
+			<sysproperty key="dir.doc" value="${dir.doc}" />
+			<sysproperty key="dir.index" value="${dir.index}" />
+		</junit>
+	</target>
+
+	<!-- ================================= 
+          target: clean              
+         ================================= -->
+	<target name="clean" description="Clean the build directory">
+		<delete dir="${dir.build}" />
+	</target>
+
+</project>
