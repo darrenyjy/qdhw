@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+This file defines the basic targets of a ant build.xml file.
+Copy it to the project folder and change project name and product name first.
+-->
 <project name="ProjectName" default="compile" basedir=".">
+	<property name="jarfile.name" value="jarfile" />
+
 	<property name="build.dir" location="build" />
 	<property name="build.product.dir" location="${build.dir}/product" />
 	<property name="build.classes.dir" location="${build.dir}/classes" />
 	<property name="build.test.dir" location="${build.dir}/test" />
 	<property name="build.doc.dir" location="${build.dir}/doc" />
 	<property name="build.lib.dir" location="${build.dir}/lib" />
+	
 	<property name="doc.dir" location="doc" />
 	<property name="index.dir" location="index" />
 	<property name="src.dir" location="src" />
 	<property name="test.dir" location="${src.dir}/test" />
 	<property name="lib.dir" location="lib" />
-	<property name="jarfile.name" value="jarfile" />
-
 
 	<path id="build.classpath">
 		<pathelement location="${build.classes.dir}" />
