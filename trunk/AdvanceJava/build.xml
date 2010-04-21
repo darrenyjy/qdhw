@@ -13,7 +13,7 @@ Copy it to the project folder and change project name and product name first.
 	<property name="build.test.dir" location="${build.dir}/test" />
 	<property name="build.doc.dir" location="${build.dir}/doc" />
 	<property name="build.lib.dir" location="${build.dir}/lib" />
-	
+
 	<property name="doc.dir" location="doc" />
 	<property name="index.dir" location="index" />
 	<property name="src.dir" location="src" />
@@ -119,6 +119,16 @@ Copy it to the project folder and change project name and product name first.
 			</fileset>
 			-->
 		</jar>
+	</target>
+
+	<!-- ================================= 
+          target: javadoc              
+         ================================= -->
+	<target name="javadoc" description="Generates java docs">
+		<mkdir dir="${build.doc.dir}"/>
+		<javadoc sourcepath="${src.dir}" destdir="${build.doc.dir}" Encoding="utf8">
+			
+		</javadoc>
 	</target>
 
 </project>
