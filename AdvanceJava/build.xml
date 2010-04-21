@@ -11,6 +11,8 @@
 	<property name="src.dir" location="src" />
 	<property name="test.dir" location="${src.dir}/test" />
 	<property name="lib.dir" location="lib" />
+	<property name="jarfile.name" value="jarfile" />
+
 
 	<path id="build.classpath">
 		<pathelement location="${build.classes.dir}" />
@@ -78,6 +80,23 @@
          ================================= -->
 	<target name="clean" description="Clean the build directory">
 		<delete dir="${build.dir}" />
+	</target>
+
+	<!-- ================================= 
+          target: jar              
+         ================================= -->
+	<target name="jar" depends="compile,copy-lib" description="Pack compiled class files into a jar">
+		<jar destfile="${build.product.dir}/${jarfile.name}.jar">
+			<fileset dir="${build.classes.dir}">
+				<include name="**/*.class" />
+				<exclude name="**/*Test.class" />
+				<exclude name="**/Test*.class" />
+			</fileset>
+			<!--	<fileset dir="${build.lib.dir}">
+				<include name="**/*.jar" />
+			</fileset>
+			-->
+		</jar>
 	</target>
 
 </project>
