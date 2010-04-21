@@ -59,7 +59,7 @@
 	<!-- ================================= 
           target: test              
          ================================= -->
-	<target name="test" depends="compile,copy-libs" description="Test source code">
+	<target name="test" depends="compile,copy-lib" description="Test source code">
 		<junit printsummary="on" haltonfailure="true" failureproperty="tests.failed" showoutput="true">
 			<classpath refid="build.classpath" />
 			<formatter type="brief" usefile="false" />
