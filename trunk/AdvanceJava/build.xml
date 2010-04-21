@@ -1,59 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="ProjectName" default="compile" basedir=".">
-	<property name="dir.build" location="build" />
-	<property name="dir.build.product" location="${dir.build}/product" />
-	<property name="dir.build.classes" location="${dir.build}/classes" />
-	<property name="dir.build.test" location="${dir.build}/test" />
-	<property name="dir.build.doc" location="${dir.build}/doc" />
-	<property name="dir.build.lib" location="${dir.build}/lib" />
-	<property name="dir.doc" location="doc" />
-	<property name="dir.index" location="index" />
-	<property name="dir.src" location="src" />
-	<property name="dir.test" location="${src.dir}/test" />
-	<property name="dir.lib" location="lib" />
+	<property name="build.dir" location="build" />
+	<property name="build.product.dir" location="${build.dir}/product" />
+	<property name="build.classes.dir" location="${build.dir}/classes" />
+	<property name="build.test.dir" location="${build.dir}/test" />
+	<property name="build.doc.dir" location="${build.dir}/doc" />
+	<property name="build.lib.dir" location="${build.dir}/lib" />
+	<property name="doc.dir" location="doc" />
+	<property name="index.dir" location="index" />
+	<property name="src.dir" location="src" />
+	<property name="test.dir" location="${src.dir}/test" />
+	<property name="lib.dir" location="lib" />
 
-	<path id="project.classpath">
-		<pathelement location="${dir.build.classes}" />
-		<fileset dir="${dir.lib}">
+	<path id="build.classpath">
+		<pathelement location="${build.classes.dir}" />
+		<fileset dir="${build.lib.dir}">
 			<include name="*.jar" />
 		</fileset>
 	</path>
 
+	<path id="project.classpath">
+		<pathelement location="${src.dir}" />
+		<fileset dir="${lib.dir}" id="lib.dir">
+			<include name="*.jar" />
+		</fileset>
+	</path>
 	<!-- ================================= 
           target: prepare              
          ================================= -->
 	<target name="prepare" description="Prepare project for building">
-		<mkdir dir="${dir.build.product}" />
-		<mkdir dir="${dir.build.classes}" />
-		<mkdir dir="${dir.build.test}" />
-		<mkdir dir="${dir.build.lib}" />
-		<mkdir dir="${dir.lib}" />
-	<!--	<copy file="${dir.lib}/**/*.jar" todir="${dir.build.lib}"/> -->
+		<mkdir dir="${build.product.dir}" />
+		<mkdir dir="${build.classes.dir}" />
+		<mkdir dir="${build.test.dir}" />
 	</target>
 
 	<!-- ================================= 
           target: compile              
          ================================= -->
 	<target name="compile" depends="prepare" description="Compile source code to build classes folder">
-		<javac srcdir="${dir.src}" destdir="${dir.build.classes}" debug="on">
+		<javac srcdir="${src.dir}" destdir="${build.classes.dir}" debug="on">
 		</javac>
 	</target>
 
 
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: copy-lib   copy-libs to build.lib.dir                   
+         - - - - - - - - - - - - - - - - - -->
+	<target name="copy-lib">
+		<mkdir dir="${build.lib.dir}" />
+		<mkdir dir="${lib.dir}" />
+		<copy todir="${build.lib.dir}">
+			<fileset dir="${lib.dir}">
+				<include name="**/*.jar" />
+			</fileset>
+		</copy>
+	</target>
+
 	<!-- ================================= 
           target: test              
          ================================= -->
-	<target name="test" depends="compile" description="Test source code">
+	<target name="test" depends="compile,copy-libs" description="Test source code">
 		<junit printsummary="on" haltonfailure="true" failureproperty="tests.failed" showoutput="true">
-			<classpath refid="project.classpath" />
+			<classpath refid="build.classpath" />
 			<formatter type="brief" usefile="false" />
 			<batchtest>
-				<fileset dir="${dir.build.classes}">
+				<fileset dir="${build.classes.dir}">
 					<include name="**/*Test.class" />
 				</fileset>
 			</batchtest>
-			<sysproperty key="dir.doc" value="${dir.doc}" />
-			<sysproperty key="dir.index" value="${dir.index}" />
+			<sysproperty key="doc.dir" value="${doc.dir}" />
+			<sysproperty key="index.dir" value="${index.dir}" />
 		</junit>
 	</target>
 
@@ -61,7 +77,7 @@
           target: clean              
          ================================= -->
 	<target name="clean" description="Clean the build directory">
-		<delete dir="${dir.build}" />
+		<delete dir="${build.dir}" />
 	</target>
 
 </project>
