@@ -21,6 +21,14 @@
 		</fileset>
 	</path>
 
+	<path id="build.test.classpath">
+		<pathelement location="${build.test.dir}" />
+		<pathelement location="${build.classes.dir}" />
+		<fileset dir="${build.lib.dir}">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+
 	<path id="project.classpath">
 		<pathelement location="${src.dir}" />
 		<fileset dir="${lib.dir}" id="lib.dir">
@@ -39,11 +47,19 @@
 	<!-- ================================= 
           target: compile              
          ================================= -->
-	<target name="compile" depends="prepare" description="Compile source code to build classes folder">
+	<target name="compile" depends="prepare" description="Compile source code">
 		<javac srcdir="${src.dir}" destdir="${build.classes.dir}" debug="on">
+			<exclude name="**/*Test.java" />
+			<exclude name="**/Test*.java" />
 		</javac>
 	</target>
 
+	<target name="compile-tests" depends="prepare" description="Compile Test source code">
+		<javac srcdir="${src.dir}" destdir="${build.test.dir}" debug="on">
+			<include name="**/*Test.java" />
+			<include name="**/Test*.java" />
+		</javac>
+	</target>
 
 	<!-- - - - - - - - - - - - - - - - - - 
           target: copy-lib   copy-libs to build.lib.dir                   
@@ -61,12 +77,12 @@
 	<!-- ================================= 
           target: test              
          ================================= -->
-	<target name="test" depends="compile,copy-lib" description="Test source code">
+	<target name="test" depends="compile-tests,copy-lib" description="Test source code">
 		<junit printsummary="on" haltonfailure="true" failureproperty="tests.failed" showoutput="true">
-			<classpath refid="build.classpath" />
+			<classpath refid="build.test.classpath" />
 			<formatter type="brief" usefile="false" />
 			<batchtest>
-				<fileset dir="${build.classes.dir}">
+				<fileset dir="${build.test.dir}">
 					<include name="**/*Test.class" />
 				</fileset>
 			</batchtest>
