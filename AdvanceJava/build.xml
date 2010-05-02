@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!--
 This file defines the basic targets of a ant build.xml file.
 Copy it to the project folder and change project name and product name first.
@@ -54,14 +53,14 @@ Copy it to the project folder and change project name and product name first.
           target: compile              
          ================================= -->
 	<target name="compile" depends="prepare" description="Compile source code">
-		<javac srcdir="${src.dir}" destdir="${build.classes.dir}" debug="on">
+		<javac srcdir="${src.dir}" destdir="${build.classes.dir}" debug="on" includeantruntime="false">
 			<exclude name="**/*Test.java" />
 			<exclude name="**/Test*.java" />
 		</javac>
 	</target>
 
 	<target name="compile-tests" depends="prepare" description="Compile Test source code">
-		<javac srcdir="${src.dir}" destdir="${build.test.dir}" debug="on">
+		<javac srcdir="${src.dir}" destdir="${build.test.dir}" debug="on" includeantruntime="true">
 			<include name="**/*Test.java" />
 			<include name="**/Test*.java" />
 		</javac>
@@ -125,9 +124,9 @@ Copy it to the project folder and change project name and product name first.
           target: javadoc              
          ================================= -->
 	<target name="javadoc" description="Generates java docs">
-		<mkdir dir="${build.doc.dir}"/>
+		<mkdir dir="${build.doc.dir}" />
 		<javadoc sourcepath="${src.dir}" destdir="${build.doc.dir}" Encoding="utf8">
-			
+
 		</javadoc>
 	</target>
 
