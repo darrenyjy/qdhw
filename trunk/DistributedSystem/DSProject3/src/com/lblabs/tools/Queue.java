@@ -27,7 +27,7 @@ public class Queue
 	}
 
 	// add anItem to the queue
-	public void enqueue(Object anItem)
+	synchronized public void enqueue(Object anItem)
 	{
 		cnt++;
 		Node x = new Node();
@@ -45,7 +45,7 @@ public class Queue
 	}
 
 	// remove and return the least recently added item
-	public Object dequeue()
+	synchronized public Object dequeue()
 	{
 		cnt--;
 		if (isEmpty())
@@ -55,7 +55,7 @@ public class Queue
 		return val;
 	}
 
-	public Object peek()
+	synchronized public Object peek()
 	{
 		if (isEmpty())
 			throw new RuntimeException("Queue underflow");

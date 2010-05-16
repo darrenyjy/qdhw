@@ -98,9 +98,20 @@ class BusinessClientThread extends Thread
 
 			case 6:
 				log.debug(threadID + ": buyBooks()");
-				Hashtable responseHash = bookRetailer.buyBooks("libing",
-						"111111", "1234567890", "C Language", 2);
-				log.debug(threadID + ": response = " + responseHash);
+				Hashtable responseHash = null;
+				while (responseHash == null)
+				{
+					try
+					{
+						sleep(1500);
+						responseHash = bookRetailer.buyBooks("libing",
+								"111111", "1234567890", "C Language", 2);
+						log.debug(threadID + ": response = " + responseHash);
+
+					} catch (Exception e)
+					{
+					}
+				}
 				break;
 			}
 			index = workSequence.indexOf("#");
