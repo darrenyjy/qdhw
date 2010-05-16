@@ -5,7 +5,12 @@ import java.io.FileWriter;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Hashtable;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -18,6 +23,7 @@ import com.lblabs.xmltool.SelectorForHash;
 
 public class BookRetailer
 {
+	private static Log log = LogFactory.getLog(BookRetailer.class);
 	String bookName;
 	float bookPrice;
 	String publisher;
@@ -42,6 +48,13 @@ public class BookRetailer
 	String tempFile;
 	String tempFileCopy;
 
+	boolean requestFlag = false;
+	boolean responseFlg = false;
+	boolean bookStoreFlg = false;
+
+	ReadWriteLock readWriteLock;
+	Lock lock;
+
 	public BookRetailer()
 	{
 		usrDir = System.getProperty("user.dir") + "/db/";
@@ -51,10 +64,13 @@ public class BookRetailer
 		accountInfoXML = usrDir + "account_info.xml";
 		requestQueueXML = usrDir + "request_queue.xml";
 		responseQueueXML = usrDir + "response_queue.xml";
+		readWriteLock = new ReentrantReadWriteLock();
+		lock = readWriteLock.readLock();
 	}
 
 	public float getPrice(String bookName)
 	{
+
 		SelectorByTagAndWhere selectorByTagAndWhere = new SelectorByTagAndWhere();
 		bookPrice = this.convertStringToFloat(selectorByTagAndWhere
 				.selectByTagAndWhere(bookStoreXML, "BookName", "BookPrice",
@@ -65,6 +81,7 @@ public class BookRetailer
 	public String getPublisher(String bookName)
 	{
 		SelectorByTagAndWhere selectorByTagAndWhere = new SelectorByTagAndWhere();
+
 		publisher = selectorByTagAndWhere.selectByTagAndWhere(bookStoreXML,
 				"BookName", "BookPublisher", bookName);
 		return publisher;
@@ -83,6 +100,7 @@ public class BookRetailer
 		SelectorByTagAndWhere selectorByTagAndWhere = new SelectorByTagAndWhere();
 		Hashtable orderFormHash = new Hashtable();
 		orderFormHash.put("RequestID", requestID);
+
 		orderFormHash.put("InputAccountName", selectorByTagAndWhere
 				.selectByTagAndWhere(requestQueueXML, "RequestID",
 						"InputAccountName", requestID));
@@ -98,6 +116,7 @@ public class BookRetailer
 		orderFormHash.put("InputQuantity", selectorByTagAndWhere
 				.selectByTagAndWhere(requestQueueXML, "RequestID",
 						"InputQuantity", requestID));
+
 		return orderFormHash;
 	}
 
@@ -106,6 +125,7 @@ public class BookRetailer
 		SelectorByTagAndWhere selectorByTagAndWhere = new SelectorByTagAndWhere();
 		Hashtable receiptFormHash = new Hashtable();
 		receiptFormHash.put("ResponseID", responseID);
+
 		receiptFormHash.put("Exception", selectorByTagAndWhere
 				.selectByTagAndWhere(responseQueueXML, "ResponseID",
 						"Exception", responseID));
@@ -124,6 +144,7 @@ public class BookRetailer
 		receiptFormHash.put("Payment", selectorByTagAndWhere
 				.selectByTagAndWhere(responseQueueXML, "ResponseID", "Payment",
 						responseID));
+
 		return receiptFormHash;
 	}
 
@@ -175,15 +196,29 @@ public class BookRetailer
 							cash = cash + payment;
 							Hashtable keyTagHash = new Hashtable();
 							Hashtable keyValueHash = new Hashtable();
+
 							keyTagHash.put("0", "BookName");
 							keyTagHash.put("1", "BookInStock");
 							keyValueHash.put("0", inputBookName);
 							keyValueHash.put("1", this
 									.convertIntToString(inStock));
-							lbXMLOperator.changeByMultipleTagsAndWhere(
-									bookStoreXML, keyTagHash, keyValueHash);
-							lbXMLOperator.changeByTag(bookStoreXML, "Cash",
-									this.convertFloatToString(cash));
+
+							lock = readWriteLock.writeLock();
+							try
+							{
+								lock.tryLock();
+								lbXMLOperator.changeByMultipleTagsAndWhere(
+										bookStoreXML, keyTagHash, keyValueHash);
+								lbXMLOperator.changeByTag(bookStoreXML, "Cash",
+										this.convertFloatToString(cash));
+							} catch (Exception e)
+							{
+								log.error(e);
+							} finally
+							{
+								lock.unlock();
+							}
+
 							receiptFormHash.put("Exception", "Normal");
 							receiptFormHash
 									.put("AccountName", inputAccountName);
@@ -199,6 +234,7 @@ public class BookRetailer
 											.convertIntToString(quantity), this
 											.convertFloatToString(payment),
 									inputCreditCardNumber);
+
 						} else
 						{
 							receiptFormHash.put("Exception",
@@ -255,9 +291,13 @@ public class BookRetailer
 		{
 			InputStream is = new FileInputStream(requestQueueXML);
 			Parser parser = new Parser(requestQueueXML);
-
-			Document doc = parser.readStream(is);
-			Element root = doc.getDocumentElement();
+			Document doc;
+			Element root;
+			synchronized (parser)
+			{
+				doc = parser.readStream(is);
+				root = doc.getDocumentElement();
+			}
 
 			Element requestItem;
 			Element requestIDItem;
@@ -267,8 +307,11 @@ public class BookRetailer
 			Element inputBookNameItem;
 			Element inputQuantityItem;
 
-			requestItem = doc.createElement("Request");
-			root.appendChild(requestItem);
+			synchronized (doc)
+			{
+				requestItem = doc.createElement("Request");
+				root.appendChild(requestItem);
+			}
 
 			SelectorForHash selectorForHash = new SelectorForHash();
 			Hashtable requestIDHash = new Hashtable();
@@ -277,41 +320,53 @@ public class BookRetailer
 			int requestIDSize = requestIDHash.size() + 1;
 
 			// String str = null;
+			lock = readWriteLock.writeLock();
+			try
+			{
+				lock.lock();
+				requestIDItem = doc.createElement("RequestID");
+				requestIDItem.appendChild(doc.createTextNode(String
+						.valueOf(requestIDSize)));
+				requestItem.appendChild(requestIDItem);
 
-			requestIDItem = doc.createElement("RequestID");
-			requestIDItem.appendChild(doc.createTextNode(String
-					.valueOf(requestIDSize)));
-			requestItem.appendChild(requestIDItem);
+				inputAccountNameItem = doc.createElement("InputAccountName");
+				inputAccountNameItem.appendChild(doc
+						.createTextNode(inputAccountName));
+				requestItem.appendChild(inputAccountNameItem);
 
-			inputAccountNameItem = doc.createElement("InputAccountName");
-			inputAccountNameItem.appendChild(doc
-					.createTextNode(inputAccountName));
-			requestItem.appendChild(inputAccountNameItem);
+				inputAccountPasswordItem = doc
+						.createElement("InputAccountPassword");
+				inputAccountPasswordItem.appendChild(doc
+						.createTextNode(inputAccountPassword));
+				requestItem.appendChild(inputAccountPasswordItem);
 
-			inputAccountPasswordItem = doc
-					.createElement("InputAccountPassword");
-			inputAccountPasswordItem.appendChild(doc
-					.createTextNode(inputAccountPassword));
-			requestItem.appendChild(inputAccountPasswordItem);
+				inputCreditCardNumberItem = doc
+						.createElement("InputCreditCardNumber");
+				inputCreditCardNumberItem.appendChild(doc
+						.createTextNode(inputCreditCardNumber));
+				requestItem.appendChild(inputCreditCardNumberItem);
 
-			inputCreditCardNumberItem = doc
-					.createElement("InputCreditCardNumber");
-			inputCreditCardNumberItem.appendChild(doc
-					.createTextNode(inputCreditCardNumber));
-			requestItem.appendChild(inputCreditCardNumberItem);
+				inputBookNameItem = doc.createElement("InputBookName");
+				inputBookNameItem
+						.appendChild(doc.createTextNode(inputBookName));
+				requestItem.appendChild(inputBookNameItem);
 
-			inputBookNameItem = doc.createElement("InputBookName");
-			inputBookNameItem.appendChild(doc.createTextNode(inputBookName));
-			requestItem.appendChild(inputBookNameItem);
+				inputQuantityItem = doc.createElement("InputQuantity");
+				inputQuantityItem
+						.appendChild(doc.createTextNode(inputQuantity));
+				requestItem.appendChild(inputQuantityItem);
 
-			inputQuantityItem = doc.createElement("InputQuantity");
-			inputQuantityItem.appendChild(doc.createTextNode(inputQuantity));
-			requestItem.appendChild(inputQuantityItem);
+				FileWriter fw = new FileWriter(requestQueueXML);
+				PrintWriter pw = new PrintWriter(fw, true);
 
-			FileWriter fw = new FileWriter(requestQueueXML);
-			PrintWriter pw = new PrintWriter(fw, true);
-
-			((TXDocument) doc).printWithFormat(pw);
+				((TXDocument) doc).printWithFormat(pw);
+			} catch (Exception e)
+			{
+				// TODO: handle exception
+			} finally
+			{
+				lock.unlock();
+			}
 		} catch (Exception e)
 		{
 			e.printStackTrace();
@@ -326,11 +381,15 @@ public class BookRetailer
 		{
 			InputStream is = new FileInputStream(responseQueueXML);
 			Parser parser = new Parser(responseQueueXML);
+			Document doc;
+			Element root;
+			synchronized (parser)
+			{
+				doc = parser.readStream(is);
+				root = doc.getDocumentElement();
+			}
 
-			Document doc = parser.readStream(is);
-			Element root = doc.getDocumentElement();
-
-			Element responseItem;
+			Element responseItem = null;
 			Element responseIDItem;
 			Element exceptionItem;
 			Element accountNameItem;
@@ -339,8 +398,11 @@ public class BookRetailer
 			Element creditCardNumberItem;
 			Element paymentItem;
 
-			responseItem = doc.createElement("Response");
-			root.appendChild(responseItem);
+			synchronized (doc)
+			{
+				responseItem = doc.createElement("Response");
+				root.appendChild(responseItem);
+			}
 
 			SelectorForHash selectorForHash = new SelectorForHash();
 			Hashtable responseIDHash = new Hashtable();
@@ -349,40 +411,53 @@ public class BookRetailer
 			int responseIDSize = responseIDHash.size();
 			// String str = null;
 
-			responseIDItem = doc.createElement("ResponseID");
-			responseIDItem.appendChild(doc.createTextNode(String
-					.valueOf(responseIDSize)));
-			responseItem.appendChild(responseIDItem);
+			lock = readWriteLock.writeLock();
 
-			exceptionItem = doc.createElement("Exception");
-			exceptionItem.appendChild(doc.createTextNode(exception));
-			responseItem.appendChild(exceptionItem);
+			try
+			{
+				lock.lock();
+				responseIDItem = doc.createElement("ResponseID");
+				responseIDItem.appendChild(doc.createTextNode(String
+						.valueOf(responseIDSize)));
+				responseItem.appendChild(responseIDItem);
 
-			accountNameItem = doc.createElement("AccountName");
-			accountNameItem.appendChild(doc.createTextNode(accountName));
-			responseItem.appendChild(accountNameItem);
+				exceptionItem = doc.createElement("Exception");
+				exceptionItem.appendChild(doc.createTextNode(exception));
+				responseItem.appendChild(exceptionItem);
 
-			bookNameItem = doc.createElement("BookName");
-			bookNameItem.appendChild(doc.createTextNode(bookName));
-			responseItem.appendChild(bookNameItem);
+				accountNameItem = doc.createElement("AccountName");
+				accountNameItem.appendChild(doc.createTextNode(accountName));
+				responseItem.appendChild(accountNameItem);
 
-			quantityItem = doc.createElement("Quantity");
-			quantityItem.appendChild(doc.createTextNode(quantity));
-			responseItem.appendChild(quantityItem);
+				bookNameItem = doc.createElement("BookName");
+				bookNameItem.appendChild(doc.createTextNode(bookName));
+				responseItem.appendChild(bookNameItem);
 
-			creditCardNumberItem = doc.createElement("CreditCardNumber");
-			creditCardNumberItem.appendChild(doc
-					.createTextNode(creditCardNumber));
-			responseItem.appendChild(creditCardNumberItem);
+				quantityItem = doc.createElement("Quantity");
+				quantityItem.appendChild(doc.createTextNode(quantity));
+				responseItem.appendChild(quantityItem);
 
-			paymentItem = doc.createElement("Payment");
-			paymentItem.appendChild(doc.createTextNode(payment));
-			responseItem.appendChild(paymentItem);
+				creditCardNumberItem = doc.createElement("CreditCardNumber");
+				creditCardNumberItem.appendChild(doc
+						.createTextNode(creditCardNumber));
+				responseItem.appendChild(creditCardNumberItem);
 
-			FileWriter fw = new FileWriter(responseQueueXML);
-			PrintWriter pw = new PrintWriter(fw, true);
+				paymentItem = doc.createElement("Payment");
+				paymentItem.appendChild(doc.createTextNode(payment));
+				responseItem.appendChild(paymentItem);
 
-			((TXDocument) doc).printWithFormat(pw);
+				FileWriter fw = new FileWriter(responseQueueXML);
+				PrintWriter pw = new PrintWriter(fw, true);
+
+				((TXDocument) doc).printWithFormat(pw);
+
+			} catch (Exception e)
+			{
+				// TODO: handle exception
+			} finally
+			{
+				lock.unlock();
+			}
 		} catch (Exception e)
 		{
 			e.printStackTrace();

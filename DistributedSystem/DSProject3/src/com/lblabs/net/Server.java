@@ -418,7 +418,7 @@ class ConnectionStatus
 	public boolean getRegularConnection()
 	{
 		System.out.println("currentConnection = " + currentConnection);
-		// System.out.println("connectionLimitation = " + connectionLimitation);
+		System.out.println("connectionLimitation = " + connectionLimitation);
 		if (currentConnection < connectionLimitation)
 		{
 			currentConnection++;
