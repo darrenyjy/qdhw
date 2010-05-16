@@ -1,0 +1,8 @@
+<!ELEMENT RequestQueue (Request*)>
+<!ELEMENT Request (RequestID, InputAccountName, InputAccountPassword, InputCreditCardNumber, InputBookName, InputQuantity)>
+<!ELEMENT RequestID (#PCDATA)>
+<!ELEMENT InputAccountName (#PCDATA)>
+<!ELEMENT InputAccountPassword (#PCDATA)>
+<!ELEMENT InputCreditCardNumber (#PCDATA)>
+<!ELEMENT InputBookName (#PCDATA)>
+<!ELEMENT InputQuantity (#PCDATA)>
