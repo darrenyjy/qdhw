@@ -1,0 +1,382 @@
+<?xml version="1.0"?>
+<!DOCTYPE ResponseQueue SYSTEM "response_queue.dtd" >
+<ResponseQueue>
+  <Response>
+    <ResponseID>0</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>1</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>2</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>3</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>4</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>5</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>6</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>7</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>8</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>9</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>10</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>11</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>12</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>13</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>14</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>15</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>16</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>17</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>18</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>19</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>20</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>21</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>22</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>23</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>24</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>25</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>26</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>27</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>28</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>29</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>30</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>31</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>32</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>33</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>34</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>35</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>36</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>37</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>38</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>39</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>40</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+  <Response>
+    <ResponseID>41</ResponseID>
+    <Exception>Normal</Exception>
+    <AccountName>libing</AccountName>
+    <BookName>C Language</BookName>
+    <Quantity>2</Quantity>
+    <CreditCardNumber>1234567890</CreditCardNumber>
+    <Payment>68.0</Payment>
+  </Response>
+</ResponseQueue>
