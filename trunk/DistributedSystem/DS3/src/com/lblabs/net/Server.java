@@ -1,13 +1,16 @@
 package com.lblabs.net;
 
-import java.io.*;
-import java.net.*;
-import java.util.Hashtable;
+import java.io.IOException;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 import com.lblabs.business.BookRetailer;
-import com.lblabs.tools.Tools;
 import com.lblabs.tools.Queue;
+import com.lblabs.tools.Tools;
 
 public class Server
 {
@@ -23,7 +26,8 @@ public class Server
 
 		ConnectionStatus connectionStatus = new ConnectionStatus();
 
-		Communicator communicator = new Communicator(requestQueueHash, generalRequestQueue, generalResponseQueue);
+		Communicator communicator = new Communicator(requestQueueHash,
+				generalRequestQueue, generalResponseQueue);
 		communicator.start();
 
 		RequestMessage requestMessage = new RequestMessage();
@@ -34,39 +38,49 @@ public class Server
 			try
 			{
 				Thread.sleep(100);
-			}
-			catch (Exception e)
+			} catch (Exception e)
 			{
 				System.out.println(e);
 			}
 
 			if (!generalRequestQueue.isEmpty())
 			{
-				requestMessage = (RequestMessage)generalRequestQueue.dequeue();
-//System.out.println("generalRequestQueue.count() (in main) = " + generalRequestQueue.count());
-//System.out.println("requestMessage.threadID (in main) = " + requestMessage.threadID);
-//System.out.println("requestMessage.methodName (in main) = " + requestMessage.methodName);
-//System.out.println("requestMessage.parameterString (in main) = " + requestMessage.parameterString);
-				if (!threadIDList.contains(requestMessage.threadID) && requestMessage.methodName.equals("isConnectionAvailable"))
+				requestMessage = (RequestMessage) generalRequestQueue.dequeue();
+				// System.out.println("generalRequestQueue.count() (in main) = "
+				// + generalRequestQueue.count());
+				// System.out.println("requestMessage.threadID (in main) = " +
+				// requestMessage.threadID);
+				// System.out.println("requestMessage.methodName (in main) = " +
+				// requestMessage.methodName);
+				// System.out.println("requestMessage.parameterString (in main) = "
+				// + requestMessage.parameterString);
+				if (!threadIDList.contains(requestMessage.threadID)
+						&& requestMessage.methodName
+								.equals("isConnectionAvailable"))
 				{
-//System.out.println("connectionStatus.getRegularConnection() = " + connectionStatus.getRegularConnection());
+					// System.out.println("connectionStatus.getRegularConnection() = "
+					// + connectionStatus.getRegularConnection());
 					if (connectionStatus.getRegularConnection())
 					{
 						threadIDList.add(requestMessage.threadID);
 						Queue requestQueue = new Queue();
-						requestQueueHash.put(requestMessage.threadID, requestQueue);
-						BusinessServerThread businessServerThread = new BusinessServerThread(requestMessage.threadID, threadIDList, requestQueue, generalResponseQueue, connectionStatus);
+						requestQueueHash.put(requestMessage.threadID,
+								requestQueue);
+						BusinessServerThread businessServerThread = new BusinessServerThread(
+								requestMessage.threadID, threadIDList,
+								requestQueue, generalResponseQueue,
+								connectionStatus);
 						businessServerThread.start();
 						responseMessage.threadID = requestMessage.threadID;
 						responseMessage.returnValue = "true";
 						responseMessage.address = requestMessage.address;
 						responseMessage.port = requestMessage.port;
 						generalResponseQueue.enqueue(responseMessage);
-//System.out.println("generalResponseQueue.isEmpty() (in main) = " + generalResponseQueue.isEmpty());
-					}
-					else
+						// System.out.println("generalResponseQueue.isEmpty() (in main) = "
+						// + generalResponseQueue.isEmpty());
+					} else
 					{
-//System.out.println("No more connections are available!");
+						// System.out.println("No more connections are available!");
 						responseMessage.threadID = requestMessage.threadID;
 						responseMessage.returnValue = "false";
 						generalResponseQueue.enqueue(responseMessage);
@@ -85,21 +99,21 @@ class Communicator extends Thread
 	Queue generalRequestQueue;
 	Queue generalResponseQueue;
 	Responser responser;
-	public Communicator(Hashtable requestQueueHash, Queue generalRequestQueue, Queue generalResponseQueue)
+
+	public Communicator(Hashtable requestQueueHash, Queue generalRequestQueue,
+			Queue generalResponseQueue)
 	{
 		this.requestQueueHash = requestQueueHash;
 		this.generalRequestQueue = generalRequestQueue;
 		this.generalResponseQueue = generalResponseQueue;
 		try
 		{
-			socket = new DatagramSocket(8888);			
-		}
-		catch (SocketException e)
+			socket = new DatagramSocket(8888);
+		} catch (SocketException e)
 		{
 			// Something went wrong with the socket connection
 			System.out.println(e.toString());
-		}
-		catch (IOException e)
+		} catch (IOException e)
 		{
 			// Something went wrong on receive
 			System.out.println(e.toString());
@@ -131,7 +145,7 @@ class Communicator extends Thread
 				packet = new DatagramPacket(reqBuffer, size);
 
 				// wait for message from client
-System.out.println("Waiting for requests ...");
+				System.out.println("Waiting for requests ...");
 				socket.receive(packet);
 
 				// extract information from datagram packet
@@ -146,25 +160,29 @@ System.out.println("Waiting for requests ...");
 				{
 					index = request.indexOf("|");
 					threadID = request.substring(0, index);
-System.out.println("threadID (in commuicator) = " + threadID);
+					System.out.println("threadID (in commuicator) = "
+							+ threadID);
 					request = request.substring(index + 1);
 					index = request.indexOf("|");
 					methodName = request.substring(0, index);
-System.out.println("methodName (in communicator) = " + methodName);
+					System.out.println("methodName (in communicator) = "
+							+ methodName);
 					request = request.substring(index + 1);
 					index = request.indexOf("|");
 					parameterString = request.substring(0, index);
 
 					RequestMessage requestMessage = new RequestMessage();
 					requestMessage.threadID = threadID;
-//System.out.println("requestMessage.threadID (in Communicator) = " + requestMessage.threadID);
+					// System.out.println("requestMessage.threadID (in Communicator) = "
+					// + requestMessage.threadID);
 					requestMessage.methodName = methodName;
 					requestMessage.parameterString = parameterString;
 					requestMessage.address = address;
 					requestMessage.port = port;
 					if (requestQueueHash.size() > 0)
 					{
-						Queue requestQueue = (Queue)requestQueueHash.get(threadID);
+						Queue requestQueue = (Queue) requestQueueHash
+								.get(threadID);
 						if (requestQueue != null)
 						{
 							requestQueue.enqueue(requestMessage);
@@ -172,16 +190,16 @@ System.out.println("methodName (in communicator) = " + methodName);
 						}
 					}
 					generalRequestQueue.enqueue(requestMessage);
-System.out.println("generalRequestQueue.count() (in Communicator) = " + generalRequestQueue.count());
+					System.out
+							.println("generalRequestQueue.count() (in Communicator) = "
+									+ generalRequestQueue.count());
 				}
 			}
-		}
-		catch (SocketException e)
+		} catch (SocketException e)
 		{
 			// Something went wrong with the socket connection
 			System.out.println(e.toString());
-		}
-		catch (IOException e)
+		} catch (IOException e)
 		{
 			// Something went wrong on receive
 			System.out.println(e.toString());
@@ -195,6 +213,7 @@ class Responser extends Thread
 	DatagramPacket packet;
 	int size = 1024;
 	Queue generalResponseQueue;
+
 	public Responser(DatagramSocket socket, Queue generalResponseQueue)
 	{
 		this.socket = socket;
@@ -207,9 +226,8 @@ class Responser extends Thread
 		{
 			try
 			{
-				Thread.sleep(1);						
-			}
-			catch (Exception e)
+				Thread.sleep(1);
+			} catch (Exception e)
 			{
 				System.out.println(e);
 			}
@@ -217,29 +235,28 @@ class Responser extends Thread
 			{
 				byte[] resBuffer = new byte[size];
 				ResponseMessage responseMessage = new ResponseMessage();
-				responseMessage = (ResponseMessage)generalResponseQueue.dequeue();
+				responseMessage = (ResponseMessage) generalResponseQueue
+						.dequeue();
 
 				// send the message back to the client
 				if (responseMessage.returnValue == null)
 				{
 					responseMessage.returnValue = "null#";
-				}
-				else
+				} else
 				{
 					responseMessage.returnValue += "#";
 				}
 				resBuffer = responseMessage.returnValue.getBytes();
 				try
 				{
-					packet = new DatagramPacket(resBuffer, resBuffer.length, responseMessage.address, responseMessage.port);
+					packet = new DatagramPacket(resBuffer, resBuffer.length,
+							responseMessage.address, responseMessage.port);
 					socket.send(packet);
-				}
-				catch (SocketException e)
+				} catch (SocketException e)
 				{
 					// Something went wrong with the socket connection
 					System.out.println(e.toString());
-				}
-				catch (IOException e)
+				} catch (IOException e)
 				{
 					// Something went wrong on receive
 					System.out.println(e.toString());
@@ -260,9 +277,11 @@ class BusinessServerThread extends Thread
 	RequestMessage requestMessage = new RequestMessage();
 	ResponseMessage responseMessage = new ResponseMessage();
 
-	public BusinessServerThread(String threadID, ArrayList threadIDList, Queue requestQueue, Queue generalResponseQueue, ConnectionStatus connectionStatus)
+	public BusinessServerThread(String threadID, ArrayList threadIDList,
+			Queue requestQueue, Queue generalResponseQueue,
+			ConnectionStatus connectionStatus)
 	{
-System.out.println("New BusinessServerThread for " + threadID);
+		System.out.println("New BusinessServerThread for " + threadID);
 		this.threadID = threadID;
 		this.threadIDList = threadIDList;
 		this.requestQueue = requestQueue;
@@ -279,25 +298,29 @@ System.out.println("New BusinessServerThread for " + threadID);
 			try
 			{
 				Thread.sleep(1);
-			}
-			catch (Exception e)
+			} catch (Exception e)
 			{
 				System.out.println(e);
 			}
 			if (!requestQueue.isEmpty())
 			{
-System.out.println("requestQueue.count (in businessServerThread) = " + requestQueue.count());
-				requestMessage = (RequestMessage)requestQueue.dequeue();
-//System.out.println("threadID (in businessServerThread) = " + threadID);
-//System.out.println("requestMessage.threadID = " + requestMessage.threadID);
+				System.out
+						.println("requestQueue.count (in businessServerThread) = "
+								+ requestQueue.count());
+				requestMessage = (RequestMessage) requestQueue.dequeue();
+				// System.out.println("threadID (in businessServerThread) = " +
+				// threadID);
+				// System.out.println("requestMessage.threadID = " +
+				// requestMessage.threadID);
 				if ((requestMessage.threadID).equals(threadID))
 				{
-//System.out.println(threadID + ": requestMessage.methodName (in BusinessServerThread) = " + requestMessage.methodName);
+					// System.out.println(threadID +
+					// ": requestMessage.methodName (in BusinessServerThread) = "
+					// + requestMessage.methodName);
 					if ((requestMessage.methodName).equals("signIn"))
 					{
 						responseMessage.returnValue = "true";
-					}
-					else if ((requestMessage.methodName).equals("signOut"))
+					} else if ((requestMessage.methodName).equals("signOut"))
 					{
 						responseMessage.returnValue = "true";
 						threadIDList.remove(threadID);
@@ -307,39 +330,48 @@ System.out.println("requestQueue.count (in businessServerThread) = " + requestQu
 						responseMessage.port = requestMessage.port;
 						generalResponseQueue.enqueue(responseMessage);
 						break;
-					}
-					else if ((requestMessage.methodName).equals("getPrice"))
+					} else if ((requestMessage.methodName).equals("getPrice"))
 					{
 						String bookName = requestMessage.parameterString;
 						float bookPrice = bookRetailer.getPrice(bookName);
-//System.out.println("bookPrice = " + bookPrice);
-						responseMessage.returnValue = tools.convertFloatToString(bookPrice);
-					}
-					else if ((requestMessage.methodName).equals("getPublisher"))
+						// System.out.println("bookPrice = " + bookPrice);
+						responseMessage.returnValue = tools
+								.convertFloatToString(bookPrice);
+					} else if ((requestMessage.methodName)
+							.equals("getPublisher"))
 					{
 						String bookName = requestMessage.parameterString;
 						String publisher = bookRetailer.getPublisher(bookName);
-//System.out.println("publisher = " + publisher);
+						// System.out.println("publisher = " + publisher);
 						responseMessage.returnValue = publisher;
-					}
-					else if ((requestMessage.methodName).equals("getAuthor"))
+					} else if ((requestMessage.methodName).equals("getAuthor"))
 					{
 						String bookName = requestMessage.parameterString;
 						String author = bookRetailer.getAuthor(bookName);
-//System.out.println("author = " + author);
+						// System.out.println("author = " + author);
 						responseMessage.returnValue = author;
-					}
-					else if ((requestMessage.methodName).equals("buyBooks"))
+					} else if ((requestMessage.methodName).equals("buyBooks"))
 					{
-//System.out.println("parameterString (in BusinessServerThread) = " + requestMessage.parameterString);
-						Hashtable parameterHash = tools.convertStringToHash(requestMessage.parameterString);
-						String inputAccountName = (String)parameterHash.get("0");
-						String inputAccountPassword = (String)parameterHash.get("1");
-						String inputCreditCardNumber = (String)parameterHash.get("2");
-						String inputBookName = (String)parameterHash.get("3");
-						int inputQuantity = tools.convertStringToInt((String)parameterHash.get("4"));
-						Hashtable responseHash = bookRetailer.buyBooks(inputAccountName, inputAccountPassword, inputCreditCardNumber, inputBookName, inputQuantity);
-						responseMessage.returnValue = tools.convertHashToString(responseHash);
+						// System.out.println("parameterString (in BusinessServerThread) = "
+						// + requestMessage.parameterString);
+						Hashtable parameterHash = tools
+								.convertStringToHash(requestMessage.parameterString);
+						String inputAccountName = (String) parameterHash
+								.get("0");
+						String inputAccountPassword = (String) parameterHash
+								.get("1");
+						String inputCreditCardNumber = (String) parameterHash
+								.get("2");
+						String inputBookName = (String) parameterHash.get("3");
+						int inputQuantity = tools
+								.convertStringToInt((String) parameterHash
+										.get("4"));
+						Hashtable responseHash = bookRetailer.buyBooks(
+								inputAccountName, inputAccountPassword,
+								inputCreditCardNumber, inputBookName,
+								inputQuantity);
+						responseMessage.returnValue = tools
+								.convertHashToString(responseHash);
 					}
 					responseMessage.threadID = threadID;
 					responseMessage.address = requestMessage.address;
@@ -377,14 +409,13 @@ class ConnectionStatus
 
 	public boolean getRegularConnection()
 	{
-System.out.println("currentConnection = " + currentConnection);
-//System.out.println("connectionLimitation = " + connectionLimitation);
+		System.out.println("currentConnection = " + currentConnection);
+		// System.out.println("connectionLimitation = " + connectionLimitation);
 		if (currentConnection < connectionLimitation)
 		{
-			currentConnection ++;
+			currentConnection++;
 			return true;
-		}
-		else
+		} else
 		{
 			return false;
 		}
@@ -394,10 +425,9 @@ System.out.println("currentConnection = " + currentConnection);
 	{
 		if (currentCriticalConnection < criticalConnectionLimitation)
 		{
-			currentCriticalConnection ++;
+			currentCriticalConnection++;
 			return true;
-		}
-		else
+		} else
 		{
 			return false;
 		}
@@ -405,11 +435,11 @@ System.out.println("currentConnection = " + currentConnection);
 
 	public void getRegularDisconnection()
 	{
-		currentConnection --;
+		currentConnection--;
 	}
 
 	public void getCriticalDisconnection()
 	{
-		currentCriticalConnection --;
+		currentCriticalConnection--;
 	}
 }
