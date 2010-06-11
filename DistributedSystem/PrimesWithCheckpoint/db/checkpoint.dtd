@@ -1,0 +1,6 @@
+<!ELEMENT CheckPoint (DefaultStop, FirstPrime, MaxCount, CurrentPrimeCount, CurrentPrime*)>
+<!ELEMENT DefaultStop (#PCDATA)>
+<!ELEMENT FirstPrime (#PCDATA)>
+<!ELEMENT MaxCount (#PCDATA)>
+<!ELEMENT CurrentPrimeCount (#PCDATA)>
+<!ELEMENT CurrentPrime (#PCDATA)>
