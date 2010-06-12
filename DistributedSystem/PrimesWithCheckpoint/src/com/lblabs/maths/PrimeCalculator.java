@@ -1,6 +1,6 @@
 package com.lblabs.maths;
 
-class PrimeCalculator implements Runnable
+class PrimeCalculator extends Thread
 {
 
 	/*
@@ -20,5 +20,10 @@ class PrimeCalculator implements Runnable
 		{
 			System.out.println(finalPrime[i]);
 		}
+	}
+
+	public static void main(String args[])
+	{
+		new PrimeCalculator().run();
 	}
 }
