@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE CheckPoint SYSTEM "checkpoint.dtd" >
 <CheckPoint>
-  <DefaultStop>400</DefaultStop>
+  <DefaultStop>40000</DefaultStop>
   <FirstPrime>397</FirstPrime>
   <MaxCount>10</MaxCount>
   <CurrentPrimeCount>78</CurrentPrimeCount>
