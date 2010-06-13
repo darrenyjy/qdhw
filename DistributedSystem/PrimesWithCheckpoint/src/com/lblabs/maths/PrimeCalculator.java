@@ -1,6 +1,6 @@
 package com.lblabs.maths;
 
-class PrimeCalculator extends Thread
+class PrimeCalculator
 {
 
 	/*
@@ -8,7 +8,6 @@ class PrimeCalculator extends Thread
 	 * 
 	 * @see java.lang.Runnable#run()
 	 */
-	@Override
 	public void run()
 	{
 		CheckPoint checkPoint = new CheckPoint();
