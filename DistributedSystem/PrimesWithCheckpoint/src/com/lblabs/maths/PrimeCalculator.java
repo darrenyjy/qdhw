@@ -13,13 +13,12 @@ class PrimeCalculator extends Thread
 	{
 		CheckPoint checkPoint = new CheckPoint();
 		Primes primes = new Primes(checkPoint);
-		long[] finalPrime;
-		finalPrime = primes.calculatePrimes();
-		int currentPrimeCount = checkPoint.getCurrentPrimeCount();
-		for (int i = 1; i <= currentPrimeCount; i++)
+		for (int i = 0; i < 3; i++)
 		{
-			System.out.println(finalPrime[i]);
+			primes.calculatePrimes();
+			checkPoint.increaseStopBy(10);
 		}
+
 	}
 
 	public static void main(String args[])

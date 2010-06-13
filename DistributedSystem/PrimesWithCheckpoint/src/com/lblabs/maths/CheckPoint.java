@@ -86,6 +86,15 @@ class CheckPoint
 		return currentPrimes;
 	}
 
+	public void increaseStopBy(long steps)
+	{
+		Tools tools = new Tools();
+		LBXMLOperator lbXMLOperator = new LBXMLOperator();
+		long stop = this.getDEFAULT_STOP();
+		lbXMLOperator.changeByTag(checkPointXML, "DefaultStop", tools
+				.convertLongToString(stop + steps));
+	}
+
 	public boolean createCheckPoint(long currentPrime)
 	{
 		Tools tools = new Tools();
