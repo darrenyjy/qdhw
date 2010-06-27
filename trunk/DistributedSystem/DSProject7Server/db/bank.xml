@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE Bank SYSTEM "bank.dtd" >
+<Bank>
+  <BankInfo>
+    <TotalDeposit>600.0</TotalDeposit>
+  </BankInfo>
+  <BankAccount>
+    <AccountName>A</AccountName>
+    <AccountBalance>400.0</AccountBalance>
+  </BankAccount>
+  <BankAccount>
+    <AccountName>B</AccountName>
+    <AccountBalance>0</AccountBalance>
+  </BankAccount>
+  <BankAccount>
+    <AccountName>C</AccountName>
+    <AccountBalance>200.0</AccountBalance>
+  </BankAccount>
+</Bank>

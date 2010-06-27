@@ -1,0 +1,6 @@
+<!ELEMENT Bank (BankInfo, BankAccount*)>
+<!ELEMENT BankInfo (TotalDeposit)>
+<!ELEMENT TotalDeposit (#PCDATA)>
+<!ELEMENT BankAccount (AccountName, AccountBalance)>
+<!ELEMENT AccountName (#PCDATA)>
+<!ELEMENT AccountBalance (#PCDATA)>

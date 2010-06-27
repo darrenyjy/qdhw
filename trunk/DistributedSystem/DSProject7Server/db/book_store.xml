@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE BookStore SYSTEM "book_store.dtd" >
+<BookStore>
+  <BookRetailer>
+    <Cash>850876.0</Cash>
+  </BookRetailer>
+  <Book>
+    <BookName>C Language</BookName>
+    <BookAuthor>Mike</BookAuthor>
+    <BookPublisher>Princeton</BookPublisher>
+    <BookPrice>34.00</BookPrice>
+    <BookInStock>4074</BookInStock>
+  </Book>
+  <Book>
+    <BookName>Java Basics</BookName>
+    <BookAuthor>Smith</BookAuthor>
+    <BookPublisher>ASU</BookPublisher>
+    <BookPrice>45.00</BookPrice>
+    <BookInStock>2881</BookInStock>
+  </Book>
+  <Book>
+    <BookName>.NET Tutorial</BookName>
+    <BookAuthor>Thomas</BookAuthor>
+    <BookPublisher>UCLA</BookPublisher>
+    <BookPrice>54.00</BookPrice>
+    <BookInStock>200</BookInStock>
+  </Book>
+</BookStore>
