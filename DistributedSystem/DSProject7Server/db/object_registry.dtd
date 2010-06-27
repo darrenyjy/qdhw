@@ -1,0 +1,11 @@
+<!ELEMENT ObjectRegistry (ObjectSubscription*)>
+<!ELEMENT ObjectSubscription (ObjectName, Method*)>
+<!ELEMENT ObjectName (#PCDATA)>
+<!ELEMENT Method (MethodName, Parameter*, ReturnValue)>
+<!ELEMENT MethodName (#PCDATA)>
+<!ELEMENT Parameter (ParameterType, ParameterDescription)>
+<!ELEMENT ParameterType (#PCDATA)>
+<!ELEMENT ParameterDescription (#PCDATA)>
+<!ELEMENT ReturnValue (ReturnValueType, ReturnValueDescription)>
+<!ELEMENT ReturnValueType (#PCDATA)>
+<!ELEMENT ReturnValueDescription (#PCDATA)>
