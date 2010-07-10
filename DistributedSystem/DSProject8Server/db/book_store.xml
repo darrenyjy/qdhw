@@ -2,21 +2,21 @@
 <!DOCTYPE BookStore SYSTEM "book_store.dtd" >
 <BookStore>
   <BookRetailer>
-    <Cash>863044.0</Cash>
+    <Cash>869804.0</Cash>
   </BookRetailer>
   <Book>
     <BookName>C Language</BookName>
     <BookAuthor>Mike</BookAuthor>
     <BookPublisher>Princeton</BookPublisher>
     <BookPrice>34.00</BookPrice>
-    <BookInStock>4002</BookInStock>
+    <BookInStock>3962</BookInStock>
   </Book>
   <Book>
     <BookName>Java Basics</BookName>
     <BookAuthor>Smith</BookAuthor>
     <BookPublisher>ASU</BookPublisher>
     <BookPrice>45.00</BookPrice>
-    <BookInStock>2773</BookInStock>
+    <BookInStock>2713</BookInStock>
   </Book>
   <Book>
     <BookName>.NET Tutorial</BookName>

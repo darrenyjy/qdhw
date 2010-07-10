@@ -1,0 +1,9 @@
+<!ELEMENT MovieStore (MovieRetailer, Movie*)>
+<!ELEMENT MovieRetailer (Cash)>
+<!ELEMENT Cash (#PCDATA)>
+<!ELEMENT Movie (MovieName, MovieAuthor, MoviePublisher, MoviePrice, MovieInStock)>
+<!ELEMENT MovieName (#PCDATA)>
+<!ELEMENT MovieAuthor (#PCDATA)>
+<!ELEMENT MoviePublisher (#PCDATA)>
+<!ELEMENT MoviePrice (#PCDATA)>
+<!ELEMENT MovieInStock (#PCDATA)>
