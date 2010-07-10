@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE MovieStore SYSTEM "movie_store.dtd" >
+<MovieStore>
+  <MovieRetailer>
+    <Cash>873522.0</Cash>
+  </MovieRetailer>
+  <Movie>
+    <MovieName>C Language</MovieName>
+    <MovieAuthor>Mike</MovieAuthor>
+    <MoviePublisher>Princeton</MoviePublisher>
+    <MoviePrice>34.00</MoviePrice>
+    <MovieInStock>3992</MovieInStock>
+  </Movie>
+  <Movie>
+    <MovieName>Java Basics</MovieName>
+    <MovieAuthor>Smith</MovieAuthor>
+    <MoviePublisher>ASU</MoviePublisher>
+    <MoviePrice>45.00</MoviePrice>
+    <MovieInStock>2680</MovieInStock>
+  </Movie>
+  <Movie>
+    <MovieName>.NET Tutorial</MovieName>
+    <MovieAuthor>Thomas</MovieAuthor>
+    <MoviePublisher>UCLA</MoviePublisher>
+    <MoviePrice>54.00</MoviePrice>
+    <MovieInStock>200</MovieInStock>
+  </Movie>
+</MovieStore>

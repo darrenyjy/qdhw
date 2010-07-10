@@ -2,8 +2,8 @@ package com.lblabs.sync;
 
 import java.util.Hashtable;
 
+import com.lblabs.business.MovieRetailer;
 import com.lblabs.tools.Queue;
-import com.lblabs.business.BookRetailer;
 
 public class Mutexer
 {
@@ -25,15 +25,15 @@ public class Mutexer
 			try
 			{
 				Thread.sleep(10);
-			}
-			catch (Exception e)
+			} catch (Exception e)
 			{
 				System.out.println(e);
 			}
 			if (!resourceWaiterQueue.isEmpty())
 			{
-				potentialResourceHolder = (String)resourceWaiterQueue.peek();
-				if (threadID.equals(potentialResourceHolder) && resourceAvailable)
+				potentialResourceHolder = (String) resourceWaiterQueue.peek();
+				if (threadID.equals(potentialResourceHolder)
+						&& resourceAvailable)
 				{
 					resourceWaiterQueue.dequeue();
 					break;
@@ -42,27 +42,26 @@ public class Mutexer
 		}
 	}
 
-	public Hashtable execute(BookRetailer bookRetailer, String parameter)
+	public Hashtable execute(MovieRetailer movieRetailer, String parameter)
 	{
 		while (true)
 		{
 			try
 			{
-//				Thread.sleep(3000);
+				// Thread.sleep(3000);
 				Thread.sleep(30);
-			}
-			catch (Exception e)
+			} catch (Exception e)
 			{
 				System.out.println(e);
 			}
 			if (resourceAvailable)
 			{
-//System.out.println("\nBefore Buy ...");
+				// System.out.println("\nBefore Buy ...");
 				resourceAvailable = false;
 				Hashtable responseHash = new Hashtable();
-				responseHash = bookRetailer.buyBooks(parameter);
+				responseHash = movieRetailer.buyMovies(parameter);
 				resourceAvailable = true;
-//System.out.println("After Buy ...\n");
+				// System.out.println("After Buy ...\n");
 				return responseHash;
 			}
 		}
