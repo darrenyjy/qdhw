@@ -1,0 +1,4 @@
+<!ELEMENT DNSRegistry (DNSContent*)>
+<!ELEMENT DNSContent (URL, Address)>
+<!ELEMENT URL (#PCDATA)>
+<!ELEMENT Address (#PCDATA)>

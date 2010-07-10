@@ -1,0 +1,5 @@
+<!ELEMENT AccountInfo (Account*)>
+<!ELEMENT Account (AccountName, AccountPassword, CreditCardNumber)>
+<!ELEMENT AccountName (#PCDATA)>
+<!ELEMENT AccountPassword (#PCDATA)>
+<!ELEMENT CreditCardNumber (#PCDATA)>
