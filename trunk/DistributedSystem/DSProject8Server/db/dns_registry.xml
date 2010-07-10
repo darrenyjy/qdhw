@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!DOCTYPE DNSRegistry SYSTEM "dns_registry.dtd" >
+<DNSRegistry>
+  <DNSContent>
+    <URL>www.ibm.com</URL>
+    <Address>192.168.18.5:8888</Address>
+  </DNSContent>
+  <DNSContent>
+    <URL>www.microsoft.com</URL>
+    <Address>192.168.18.2:8888</Address>
+  </DNSContent>
+  <DNSContent>
+    <URL>www.google.com</URL>
+    <Address>192.168.18.2:8888</Address>
+  </DNSContent>
+</DNSRegistry>

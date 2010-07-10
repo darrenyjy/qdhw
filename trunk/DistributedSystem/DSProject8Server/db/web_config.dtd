@@ -1,0 +1,3 @@
+<!ELEMENT WebConfig (WebDomainName, WebDir)>
+<!ELEMENT WebDomainName (#PCDATA)>
+<!ELEMENT WebDir (#PCDATA)>
